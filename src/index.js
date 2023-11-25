@@ -27,7 +27,7 @@ root.render(
                                 <Route index element={<Home />} />
                                 <Route path="/tickets/new" element={<NewTickets />} />
                                 <Route path="/tickets/" element={<Tickets />} />
-                                <Route path="/login" element={<Login />} />"}
+                                <Route path="/login" element={<Login />} />
                                 <Route path="*" element={<App />} />
                             </Routes>
                         </>
