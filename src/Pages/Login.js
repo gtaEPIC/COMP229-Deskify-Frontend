@@ -10,7 +10,7 @@ async function Login (){
     const { from } = state || { from: { pathname: '/' } };
 
     let navigate = useNavigate();
-    
+
     const [errorMsg, setErrorMsg] = useState('')
     const [user, setUser] = useState({
         email: '',
@@ -24,7 +24,7 @@ async function Login (){
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        
+
         login(user).then((data) => {
             if (data && data.success) {
                 authenticate(data.token, () => {
@@ -57,4 +57,3 @@ async function Login (){
 }
 
 export default Login;
-
