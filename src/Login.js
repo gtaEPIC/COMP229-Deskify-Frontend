@@ -5,7 +5,7 @@ import { useState } from "react"
 import { login } from "./api-login.js";
 import { authenticate } from './login-helper.js';
 
-async function Login (){
+function Login (){
 
     const { state } = useLocation();
     const { from } = state || { from: { pathname: '/' } };
