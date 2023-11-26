@@ -5,7 +5,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import App from './App';
-import Login from './Login';
 import reportWebVitals from './reportWebVitals';
 import Header from './Header';
 import Home from './pages/Home';

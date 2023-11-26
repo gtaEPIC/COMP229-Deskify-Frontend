@@ -1,12 +1,13 @@
 import { jwtDecode } from 'jwt-decode';
 
-function authenticate(jwt) {
+function authenticate(jwt, cb) {
     if (typeof window !== "undefined") {
         localStorage.setItem('jwt', JSON.stringify(jwt));
 
         let decoded = jwtDecode(jwt);
         localStorage.setItem('username', decoded.username);
     }
+    cb();
 }
 
 function isAuthenticated() {

@@ -1,10 +1,10 @@
 import "./Login.css";
-import { useNavigate, useLocation } from "react-router-dom";
+import {useNavigate, useLocation, Link} from "react-router-dom";
 import { useState } from "react"
 import { login } from "./api-login.js";
 import { authenticate } from './login-helper.js';
 
-async function Login (){
+function Login (){
 
     const { state } = useLocation();
     const { from } = state || { from: { pathname: '/' } };
@@ -13,7 +13,7 @@ async function Login (){
 
     const [errorMsg, setErrorMsg] = useState('')
     const [user, setUser] = useState({
-        email: '',
+        username: '',
         password: ''
     });
 
@@ -44,14 +44,14 @@ async function Login (){
         <form className="form" onSubmit={handleSubmit}>
             <p className= "title">Sign in to account</p>
             <div className= "input-container">
-                <input type ="email" placeholder = "Enter email" onChange={handleChange}></input>
+                <input type ="text" name={"username"} placeholder = "Enter username" onChange={handleChange}></input>
                 <span></span>
             </div>
             <div className= "input-container">
-                <input type = "password" placeholder = "Enter password" onChange={handleChange}></input>
+                <input type = "password" name={"password"} placeholder = "Enter password" onChange={handleChange}></input>
             </div>
             <button type = "submit" className= "submit">Sign In</button>
-            <p className= "signup-link">No account?<link href = ""> Sign up!</link></p>
+            <p className= "signup-link">No account?<Link href = ""> Sign up!</Link></p>
         </form>
     );
 }
