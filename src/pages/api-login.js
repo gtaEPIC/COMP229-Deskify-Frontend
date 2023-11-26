@@ -1,8 +1,8 @@
-let apiURL = process.env.REACT_APP_APIURL
+let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 
 const login = async (user) => {
     try {
-        let response = await fetch(apiURL + '/users/signin/', {
+        let response = await fetch(apiURL + '/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
