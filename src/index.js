@@ -7,10 +7,10 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Header from './Header';
-import Home from './pages/Home';
-import Tickets from "./pages/Tickets";
-import NewTickets from "./pages/NewTickets";
 import Login from "./pages/Login";
+import Main from "./components/Main";
+import NewTickets from "./components/NewTickets";
+import Tickets from "./components/Tickets";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,7 +24,7 @@ root.render(
                             <Header />
                             <br />
                             <Routes>
-                                <Route index element={<Home />} />
+                                <Route index element={<Main />} />
                                 <Route path="/tickets/new" element={<NewTickets />} />
                                 <Route path="/tickets/" element={<Tickets />} />
                                 <Route path="/login" element={<Login />} />

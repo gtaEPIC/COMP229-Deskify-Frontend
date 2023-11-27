@@ -1,12 +1,10 @@
 import React from 'react'
-import Navbar from './Navbar'
 import { Link } from 'react-router-dom';
 
 
 export default function View() {
   return (
     <div>
-        <Navbar/>
        <div style={{backgroundColor:'rgb(183, 56, 120)',minHeight: '100vh',padding: '20px', paddingTop: '20px',}} >
        <center><h1> Ticket 1</h1></center>
        <br></br>

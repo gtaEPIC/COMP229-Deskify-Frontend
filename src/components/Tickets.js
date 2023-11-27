@@ -1,15 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Navbar from './Navbar';
-
 function Tickets() {
   return (
     <div>
-      <Navbar />
      
      <center><h2>Tickets</h2></center> 
-     <Link to="/create-ticket" className="btn btn-primary">
+     <Link to="/tickets/new" className="btn btn-primary">
         Create new tickets
       </Link>
      
@@ -17,7 +14,7 @@ function Tickets() {
      
       <br></br>
     <br></br>
-     <table class="table table-dark">
+     <table className="table table-dark">
   <thead>
     <tr>
       <th scope="col">Record</th>
