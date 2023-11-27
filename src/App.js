@@ -1,6 +1,6 @@
 // src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Main from './components/Main';
 import Tickets from './components/Tickets';
@@ -22,84 +22,36 @@ const PrivateRoute = ({ element, ...rest }) => {
 };
 
 function App() {
+  const ticketsData = [
+   
+    { id: 1, title: 'Ticket 1', description: 'Description 1' },
+    { id: 2, title: 'Ticket 2', description: 'Description 2' },
+   
+  ];
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route
-          path="/"
-          element={
-            <PrivateRoute
-              element={<Main />}
-            />
-          }
-        />
-        <Route
-          path="/tickets"
-          element={
-            <PrivateRoute
-              element={<Tickets />}
-            />
-          }
-        />
-        <Route
-          path="/tickets/new"
-          element={
-            <PrivateRoute
-              element={<AddTicket />}
-            />
-          }
-        />
-        <Route
-          path="/tickets/:id/update"
-          element={
-            <PrivateRoute
-              element={<UpdateTicket />}
-            />
-          }
-        />
-        <Route
-          path="/tickets/:id/delete"
-          element={
-            <PrivateRoute
-              element={<DeleteTicket />}
-            />
-          }
-        />
-        <Route
-          path="/view-ticket"
-          element={
-            <PrivateRoute
-              element={<View />}
-            />
-          }
-        />
-        <Route
-          path="/new-tickets"
-          element={
-            <PrivateRoute
-              element={<NewTickets />}
-            />
-          }
-        />
-        <Route
-          path="/edit-ticket"
-          element={
-            <PrivateRoute
-              element={<Edit />}
-            />
-          }
-        />
-        <Route
-          path="/ticket-list"
-          element={
-            <PrivateRoute
-              element={<TicketList tickets={[] /* pass your data here */} />}
-            />
-          }
-        />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route
+        path="/"
+        element={
+          <PrivateRoute
+            element={
+              <Main>
+                <Route path="/tickets" element={<Tickets tickets={ticketsData} />} />
+                <Route path="/tickets/new" element={<AddTicket />} />
+                <Route path="/tickets/:id/update" element={<UpdateTicket />} />
+                <Route path="/tickets/:id/delete" element={<DeleteTicket />} />
+                <Route path="/view-ticket" element={<View />} />
+                <Route path="/new-tickets" element={<NewTickets />} />
+                <Route path="/edit-ticket" element={<Edit />} />
+                <Route path="/ticket-list" element={<TicketList tickets={ticketsData} />} />
+              </Main>
+            }
+          />
+        }
+      />
+    </Routes>
   );
 }
 
