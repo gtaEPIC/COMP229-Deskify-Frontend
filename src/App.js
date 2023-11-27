@@ -1,93 +1,106 @@
 // src/App.js
-import React, { useState } from 'react';
-import TicketForm from './Tickets/TicketForm';
-import TicketDetails from './Tickets/TicketDetails';
-import TicketList from './Tickets/TicketList';
-
-import logo from './logo.svg';
-import './App.css';
-
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Login from './pages/Login';
 import Main from './components/Main';
 import Tickets from './components/Tickets';
-import NewTickets from './components/NewTickets';
+import AddTicket from './components/AddTicket';
+import UpdateTicket from './components/UpdateTicket';
+import DeleteTicket from './components/DeleteTicket';
 import View from './components/View';
+import NewTickets from './components/NewTickets';
 import Edit from './components/Edit';
+import TicketList from './components/TicketList';
+import { isAuthenticated } from './pages/login-helper';
 
-
+const PrivateRoute = ({ element, ...rest }) => {
+  return isAuthenticated() ? (
+    element
+  ) : (
+    <Navigate to="/login" replace state={{ from: rest.location }} />
+  );
+};
 
 function App() {
-  // State to manage tickets
-  const [tickets, setTickets] = useState([]);
-  const [selectedTicket, setSelectedTicket] = useState(null);
-
-  // Function to add a new ticket to the state
-  const addTicket = (newTicket) => {
-    setTickets([...tickets, newTicket]);
-  };
-
-  // Function to handle selecting a ticket for detailed view or editing
-  const handleTicketSelect = (ticket) => {
-    setSelectedTicket(ticket);
-  };
-
-  // Function to handle editing a ticket
-  const handleTicketEdit = () => {
-    // Implement logic to handle ticket editing (e.g., navigate to an edit view)
-    // For simplicity, just clear the selectedTicket for now
-    setSelectedTicket(null);
-  };
-
-  // Function to handle disabling a ticket
-  const handleTicketDisable = (ticket) => {
-    // Update the status of the selected ticket to 'Cancelled'
-    const updatedTicket = { ...ticket, status: 'Cancelled' };
-
-    // Update the state with the modified ticket
-    setTickets(tickets.map((t) => (t.title === ticket.title ? updatedTicket : t)));
-
-    // Clear the selected ticket
-    setSelectedTicket(null);
-  };
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-
-      {/* Ticket Form */}
-      <TicketForm addTicket={addTicket} />
-
-      {/* Selected Ticket Details or Edit Form */}
-      {selectedTicket ? (
-        <TicketDetails
-          ticket={selectedTicket}
-          onEdit={handleTicketEdit}
-          onDisable={handleTicketDisable}
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/"
+          element={
+            <PrivateRoute
+              element={<Main />}
+            />
+          }
         />
-      ) : (
-        <>
-          {/* Ticket List */}
-          <TicketList tickets={tickets} onSelect={handleTicketSelect} />
-
-          {/* Placeholder if no ticket is selected */}
-          {tickets.length === 0 && <p>No tickets available.</p>}
-        </>
-      )}
-    </div>
+        <Route
+          path="/tickets"
+          element={
+            <PrivateRoute
+              element={<Tickets />}
+            />
+          }
+        />
+        <Route
+          path="/tickets/new"
+          element={
+            <PrivateRoute
+              element={<AddTicket />}
+            />
+          }
+        />
+        <Route
+          path="/tickets/:id/update"
+          element={
+            <PrivateRoute
+              element={<UpdateTicket />}
+            />
+          }
+        />
+        <Route
+          path="/tickets/:id/delete"
+          element={
+            <PrivateRoute
+              element={<DeleteTicket />}
+            />
+          }
+        />
+        <Route
+          path="/view-ticket"
+          element={
+            <PrivateRoute
+              element={<View />}
+            />
+          }
+        />
+        <Route
+          path="/new-tickets"
+          element={
+            <PrivateRoute
+              element={<NewTickets />}
+            />
+          }
+        />
+        <Route
+          path="/edit-ticket"
+          element={
+            <PrivateRoute
+              element={<Edit />}
+            />
+          }
+        />
+        <Route
+          path="/ticket-list"
+          element={
+            <PrivateRoute
+              element={<TicketList tickets={[] /* pass your data here */} />}
+            />
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
-
