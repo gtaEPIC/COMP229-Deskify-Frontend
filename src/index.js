@@ -9,7 +9,6 @@ import reportWebVitals from './reportWebVitals';
 import Header from './Header';
 import Login from "./pages/Login";
 import Main from "./components/Main";
-import NewTickets from "./components/NewTickets";
 import Tickets from "./components/Tickets";
 import AddTicket from "./components/AddTicket";
 
