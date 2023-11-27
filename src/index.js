@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import Main from "./components/Main";
 import NewTickets from "./components/NewTickets";
 import Tickets from "./components/Tickets";
+import AddTicket from "./components/AddTicket";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -25,7 +26,7 @@ root.render(
                             <br />
                             <Routes>
                                 <Route index element={<Main />} />
-                                <Route path="/tickets/new" element={<NewTickets />} />
+                                <Route path="/tickets/new" element={<AddTicket />} />
                                 <Route path="/tickets/" element={<Tickets />} />
                                 <Route path="/login" element={<Login />} />
                                 <Route path="*" element={<App />} />
