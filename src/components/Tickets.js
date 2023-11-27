@@ -20,7 +20,7 @@ function Tickets() {
                 console.error('Error:', error);
             }
         };
-        fetchTickets();
+        fetchTickets().then(r => console.log(r));
     }, []);
 
   return (

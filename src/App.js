@@ -1,16 +1,6 @@
 // src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { isAuthenticated } from './pages/login-helper';
 import logo from "./logo.svg";
-
-const PrivateRoute = ({ element, ...rest }) => {
-  return isAuthenticated() ? (
-    element
-  ) : (
-    <Navigate to="/login" replace state={{ from: rest.location }} />
-  );
-};
 
 function App() {
   return (
