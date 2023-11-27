@@ -7,6 +7,14 @@ import TicketList from './Tickets/TicketList';
 import logo from './logo.svg';
 import './App.css';
 
+import Main from './components/Main';
+import Tickets from './components/Tickets';
+import NewTickets from './components/NewTickets';
+import View from './components/View';
+import Edit from './components/Edit';
+
+
+
 function App() {
   // State to manage tickets
   const [tickets, setTickets] = useState([]);
@@ -82,3 +90,4 @@ function App() {
 }
 
 export default App;
+
