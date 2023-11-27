@@ -1,11 +1,9 @@
 import React from 'react'
-import Navbar from './Navbar';
 
 
 export default function NewTickets() {
   return (
     <div style={{backgroundColor:'rgb(183, 56, 120)'}} >
-        <Navbar/>
 
        <center> 
 
@@ -24,7 +22,7 @@ export default function NewTickets() {
 
             </textarea>
             <br></br>
-            <button type="button" class="btn btn-success">Submit</button>
+            <button type="button" className="btn btn-success">Submit</button>
 
 
 

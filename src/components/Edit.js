@@ -1,11 +1,9 @@
 import React from 'react'
-import Navbar from './Navbar';
 
 
 export default function Edit() {
     return (
         <div style={{ backgroundColor: 'rgb(183, 56, 120)' }} >
-            <Navbar />
 
             <center>
 

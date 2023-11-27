@@ -1,10 +1,8 @@
 import React from 'react';
-import Navbar from './Navbar';
 
 export default function Main() {
   return (
     <div>
-        <Navbar />
     <div style={{backgroundColor:'rgb(72, 150, 160)',minHeight: '100vh',display: 'flex',flexDirection: 'column',padding: '20px', paddingTop: '20px',}}>
           
       <h2 style={{ color: 'blue' }}>Overview</h2>
