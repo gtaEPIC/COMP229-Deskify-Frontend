@@ -1,7 +1,10 @@
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, useLocation} from "react-router-dom";
 import logo from "./images/logo.png";
+import {getUsername, isAuthenticated, logout} from "./pages/login-helper";
 
 function Header() {
+    // eslint-disable-next-line no-unused-vars
+    const loc = useLocation();
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -18,10 +21,24 @@ function Header() {
                                 </Link>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><NavLink to="/tickets" className="dropdown-item">List of tickets</NavLink></li>
-                                    <li><NavLink to="/tickets/new" className="dropdown-item">New Ticket</NavLink></li>
+                                    {isAuthenticated() && (<li><NavLink to="/tickets/new" className="dropdown-item">New Ticket</NavLink></li>)}
                                 </ul>
                             </li>
-                            <li className="nav-item"><NavLink to="/login" className="nav-link">Login</NavLink></li>
+                            {isAuthenticated() && (
+                                <li className="nav-item dropdown">
+                                    <Link className="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" to="#">
+                                        User: {getUsername()}
+                                    </Link>
+                                    <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><Link to="/" onClick={logout} className="dropdown-item" >Logout</Link></li>
+                                    </ul>
+                                </li>
+                            )}
+                            {!isAuthenticated() && (
+                                <li className="nav-item"><NavLink to="/login"
+                                                                  className="nav-link">Login</NavLink>
+                                </li>
+                            )}
                         </ul>
                     </div>
                 </div>

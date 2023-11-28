@@ -1,18 +1,35 @@
 // frontend/src/components/DeleteTicket.js
 import React from 'react';
+import {useNavigate} from "react-router-dom";
+import {isAuthenticated} from "../pages/login-helper";
+let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 
-const DeleteTicket = ({ id }) => {
+const DeleteTicket = ({ id, cb }) => {
+
+  const navigate = useNavigate();
+
   const handleDelete = async () => {
     try {
+      if (!isAuthenticated()) return alert('Please login to delete tickets');
+      // eslint-disable-next-line no-restricted-globals
+      if (!confirm('Are you sure you want to delete this ticket?')) {
+        return;
+      }
       // Send a DELETE request to remove the ticket
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/tickets/${id}`, {
+      const response = await fetch(`${apiURL}/ticket/${id}`, {
         method: 'DELETE',
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+        },
       });
 
       // Check if the request was successful (status code 2xx)
       if (response.ok) {
         console.log('Ticket deleted successfully!');
-        // Optionally, you can redirect or update the UI after a successful request
+        navigate({pathname: "/tickets"}, { replace: true });
+        if (cb) {
+          cb();
+        }
       } else {
         // Handle error cases
         console.error('Failed to delete ticket:', await response.text());
@@ -23,11 +40,9 @@ const DeleteTicket = ({ id }) => {
   };
 
   return (
-    <div>
-      <h2>Delete Ticket</h2>
-      <p>Are you sure you want to delete this ticket?</p>
-      <button onClick={handleDelete}>Delete Ticket</button>
-    </div>
+    <>
+      <button onClick={handleDelete} className="btn btn-danger">Cancel</button>
+    </>
   );
 };
 

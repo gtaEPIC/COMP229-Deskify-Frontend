@@ -1,25 +1,7 @@
 // src/App.js
 import React from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
-import Login from './pages/Login';
-import Main from './components/Main';
-import Tickets from './components/Tickets';
-import AddTicket from './components/AddTicket';
-import UpdateTicket from './components/UpdateTicket';
-import DeleteTicket from './components/DeleteTicket';
-import View from './components/View';
-import NewTickets from './components/NewTickets';
-import Edit from './components/Edit';
-import TicketList from './components/TicketList';
-import { isAuthenticated } from './pages/login-helper';
+import logo from "./logo.svg";
 
-const PrivateRoute = ({ element, ...rest }) => {
-  return isAuthenticated() ? (
-    element
-  ) : (
-    <Navigate to="/login" replace state={{ from: rest.location }} />
-  );
-};
 
 function App() {
   const ticketsData = [
@@ -30,28 +12,16 @@ function App() {
   ];
 
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route
-        path="/"
-        element={
-          <PrivateRoute
-            element={
-              <Main>
-                <Route path="/tickets" element={<Tickets tickets={ticketsData} />} />
-                <Route path="/tickets/new" element={<AddTicket />} />
-                <Route path="/tickets/:id/update" element={<UpdateTicket />} />
-                <Route path="/tickets/:id/delete" element={<DeleteTicket />} />
-                <Route path="/view-ticket" element={<View />} />
-                <Route path="/new-tickets" element={<NewTickets />} />
-                <Route path="/edit-ticket" element={<Edit />} />
-                <Route path="/ticket-list" element={<TicketList tickets={ticketsData} />} />
-              </Main>
-            }
-          />
-        }
-      />
-    </Routes>
+      <div className="App">
+          <header className="App-header">
+              <img src={logo} className="App-logo" alt="logo" />
+              <p>
+                  This is a placeholder page.
+                  If you hit this page then something went wrong.
+              </p>
+              <small>Shouldn't be too shocking though</small>
+          </header>
+      </div>
   );
 }
 
