@@ -1,19 +1,11 @@
 import React, {useEffect} from 'react'
-import {Link, useParams} from 'react-router-dom';
+import {Link, useLocation, useNavigate, useParams} from 'react-router-dom';
+import TicketModel from "./TicketModel"
 let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 
 export default function View() {
     const { id } = useParams();
-    const [title, setTitle] = React.useState("");
-    const [description, setDescription] = React.useState("");
-    const [status, setStatus] = React.useState("");
-    const [priority, setPriority] = React.useState(0);
-    const [record, setRecord] = React.useState("");
-    const [dateCreated, setDateCreated] = React.useState(new Date());
-    const [updated, setUpdated] = React.useState(new Date());
-    const [user, setUser] = React.useState("");
-    const [iteration, setIteration] = React.useState([]);
-
+    const [ticket, setTicket] = React.useState(new TicketModel());
 
     useEffect(() => {
         const fetchTicket = async () => {
@@ -23,15 +15,7 @@ export default function View() {
                     const data = await response.json();
                     console.log(data);
                     let ticket = data.ticket;
-                    setTitle(ticket.title);
-                    setDescription(ticket.description);
-                    setStatus(ticket.status);
-                    setPriority(ticket.priority);
-                    setRecord(ticket.record);
-                    setDateCreated(new Date(ticket.dateCreated));
-                    setUpdated(new Date(ticket.updated));
-                    setUser(ticket.user.username);
-                    setIteration(ticket.iteration);
+                    setTicket(new TicketModel(ticket.record, ticket.title, ticket.description, ticket.status, ticket.priority, ticket.dateCreated, ticket.updated, ticket.user.username, ticket.iteration));
                 } else {
                     console.error('Failed to fetch tickets:', await response.text());
                 }
@@ -46,7 +30,7 @@ export default function View() {
   return (
     <div>
         <div style={{backgroundColor:'rgb(183, 56, 120)',minHeight: '100vh',padding: '20px', paddingTop: '20px',}} >
-        <center><h1>Ticket {record}</h1></center>
+        <center><h1>Ticket {ticket.record}</h1></center>
         <br></br>
         <Link to={`/tickets/${id}/edit`} className="btn btn-primary">
         Edit
@@ -54,16 +38,16 @@ export default function View() {
 
         <br></br>
         <br></br>
-        <center> <h1>Title: {title}</h1>
-        <p>Description:<br /> {description}</p>
-        <p>Created: {dateCreated.toLocaleString()}</p>
-        <p>Updated: {updated.toLocaleString()}</p>
-        <p>Status: {status}</p>
-        <p>Priority: {priority}</p>
-        <p>User: {user}</p>
+        <center> <h1>Title: {ticket.title}</h1>
+        <p>Description:<br /> {ticket.description}</p>
+        <p>Created: {ticket.dateCreated.toLocaleString()}</p>
+        <p>Updated: {ticket.updated.toLocaleString()}</p>
+        <p>Status: {ticket.status}</p>
+        <p>Priority: {ticket.priority}</p>
+        <p>User: {ticket.user}</p>
         <p>Resolution: </p>
         <h3> Logs: </h3>
-            {iteration.map(log => (
+            {ticket.iteration.map(log => (
                 <div className="card bg-dark text-white">
                     <p>Log: {log.comment}</p>
                     <p>Updated: {new Date(log.dateCreated).toLocaleString()}</p>

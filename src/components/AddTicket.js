@@ -1,11 +1,12 @@
 // frontend/src/components/AddTicket.js
 import React, { useState } from 'react';
-import {Navigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 
 const AddTicket = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +25,7 @@ const AddTicket = () => {
       // Check if the request was successful (status code 2xx)
       if (response.ok) {
         console.log('New ticket added successfully!');
-        Navigate('/tickets');
+        navigate({pathname: "/tickets"}, { replace: true });
       } else {
         // Handle error cases
         console.error('Failed to add new ticket:', await response.text());

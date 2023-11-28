@@ -1,9 +1,11 @@
 import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
+import DeleteTicket from "./DeleteTicket";
 let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 
 function Tickets() {
     const [tickets, setTickets] = React.useState([]);
+    const [update, setUpdate] = React.useState(false);
 
     useEffect(() => {
         const fetchTickets = async () => {
@@ -21,7 +23,7 @@ function Tickets() {
             }
         };
         fetchTickets().then(r => console.log(r));
-    }, []);
+    }, [update]);
 
   return (
     <div>
@@ -40,7 +42,7 @@ function Tickets() {
       <th scope="col">Status</th>
       <th scope="col">Created</th>
       <th scope="col">Last Update</th>
-      <th scope="col">View</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -54,7 +56,9 @@ function Tickets() {
       <td>{new Date(ticket.updated).toLocaleString()}</td>
       <td><Link to={`/tickets/${ticket.record}`} className="btn btn-primary">
         View
-      </Link></td>
+      </Link>
+      <DeleteTicket id={ticket.record} cb={() => setUpdate(!update)} />
+      </td>
     </tr>
   ))}
   {

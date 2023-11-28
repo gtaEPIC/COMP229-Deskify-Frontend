@@ -12,7 +12,7 @@ import Main from "./components/Main";
 import Tickets from "./components/Tickets";
 import AddTicket from "./components/AddTicket";
 import View from "./components/View";
-import Edit from "./components/Edit";
+import UpdateTicket from "./components/UpdateTicket";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -28,7 +28,7 @@ root.render(
                             <Routes>
                                 <Route index element={<Main />} />
                                 <Route path="/tickets/new" element={<AddTicket />} />
-                                <Route path="/tickets/:id/edit" element={<Edit />} />
+                                <Route path="/tickets/:id/edit" element={<UpdateTicket />} />
                                 <Route path="/tickets/:id" element={<View />} />
                                 <Route path="/tickets/" element={<Tickets />} />
                                 <Route path="/login" element={<Login />} />
