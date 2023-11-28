@@ -2,7 +2,15 @@
 import React from 'react';
 import logo from "./logo.svg";
 
+
 function App() {
+  const ticketsData = [
+   
+    { id: 1, title: 'Ticket 1', description: 'Description 1' },
+    { id: 2, title: 'Ticket 2', description: 'Description 2' },
+   
+  ];
+
   return (
       <div className="App">
           <header className="App-header">
