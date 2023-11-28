@@ -1,12 +1,19 @@
 // frontend/src/components/AddTicket.js
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
+import {isAuthenticated} from "../pages/login-helper";
 let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 
 const AddTicket = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

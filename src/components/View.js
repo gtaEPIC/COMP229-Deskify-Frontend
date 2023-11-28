@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import {Link, useParams} from 'react-router-dom';
 import TicketModel from "./TicketModel"
+import {isAuthenticated} from "../pages/login-helper";
 let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 
 export default function View() {
@@ -32,9 +33,14 @@ export default function View() {
         <div style={{backgroundColor:'rgb(183, 56, 120)',minHeight: '100vh',padding: '20px', paddingTop: '20px',}} >
         <center><h1>Ticket {ticket.record}</h1></center>
         <br></br>
-        <Link to={`/tickets/${id}/edit`} className="btn btn-primary">
-        Edit
-        </Link>
+            {isAuthenticated() && (<Link to={`/tickets/${id}/edit`} className="btn btn-primary">
+                Edit
+            </Link>)}
+            {!isAuthenticated() && (
+                <Link to="/login" className="btn btn-primary">
+                    Login to edit tickets
+                </Link>
+            )}
 
         <br></br>
         <br></br>

@@ -1,6 +1,7 @@
 // frontend/src/components/DeleteTicket.js
 import React from 'react';
 import {useNavigate} from "react-router-dom";
+import {isAuthenticated} from "../pages/login-helper";
 let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 
 const DeleteTicket = ({ id, cb }) => {
@@ -9,6 +10,7 @@ const DeleteTicket = ({ id, cb }) => {
 
   const handleDelete = async () => {
     try {
+      if (!isAuthenticated()) return alert('Please login to delete tickets');
       // eslint-disable-next-line no-restricted-globals
       if (!confirm('Are you sure you want to delete this ticket?')) {
         return;

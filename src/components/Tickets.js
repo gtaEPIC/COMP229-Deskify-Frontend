@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import DeleteTicket from "./DeleteTicket";
+import {isAuthenticated} from "../pages/login-helper";
 let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 
 function Tickets() {
@@ -27,10 +28,17 @@ function Tickets() {
 
   return (
     <div>
-     <center><h2>Tickets</h2></center> 
-     <Link to="/tickets/new" className="btn btn-primary">
-        Create new tickets
-      </Link>
+     <center><h2>Tickets</h2></center>
+        {isAuthenticated() && (
+            <Link to="/tickets/new" className="btn btn-primary">
+                Create new tickets
+            </Link>
+        )}
+        {!isAuthenticated() && (
+            <Link to="/login" className="btn btn-primary">
+                Login to create tickets
+            </Link>
+        )}
       <br></br>
     <br></br>
      <table className="table table-dark">
@@ -57,7 +65,7 @@ function Tickets() {
       <td><Link to={`/tickets/${ticket.record}`} className="btn btn-primary">
         View
       </Link>
-      <DeleteTicket id={ticket.record} cb={() => setUpdate(!update)} />
+          {isAuthenticated() && (<DeleteTicket id={ticket.record} cb={() => setUpdate(!update)} />)}
       </td>
     </tr>
   ))}

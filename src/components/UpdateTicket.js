@@ -2,6 +2,7 @@
 import React, {  useEffect } from 'react';
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import TicketModel from "./TicketModel";
+import {isAuthenticated} from "../pages/login-helper";
 let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 
 const UpdateTicket = () => {
@@ -10,6 +11,12 @@ const UpdateTicket = () => {
   const { state } = useLocation();
   const { from } = state || { from: { pathname: '/tickets' } };
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   useEffect(() => {
     // Fetch ticket details by ID from the backend (GET request)
