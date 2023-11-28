@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {Link, useLocation, useNavigate, useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import TicketModel from "./TicketModel"
 let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 

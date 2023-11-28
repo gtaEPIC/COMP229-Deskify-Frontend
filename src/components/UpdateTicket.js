@@ -1,6 +1,6 @@
 // frontend/src/components/UpdateTicket.js
 import React, {  useEffect } from 'react';
-import {Navigate, useLocation, useNavigate, useParams} from 'react-router-dom';
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import TicketModel from "./TicketModel";
 let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 
