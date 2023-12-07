@@ -7,16 +7,16 @@ function Header() {
     const loc = useLocation();
     return (
         <>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <div className="container-fluid">
-                    <NavLink to="#" className="navbar-brand">
-                        <img src={logo} alt="logo" width="64" height="64" className="d-inline-block align-text-top" />
+            <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: "rgb(72, 150, 160)", padding: 0, height: '64px' }}>
+                    <NavLink to="#" className="navbar-brand" style={{ marginLeft: '0px' }}>
+                        <img src={logo} alt="logo" width="64" height="64" />
                     </NavLink>
+                <div className="container-fluid">
                     <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav me-auto">
-                            <li className="nav-item"><NavLink to="/" className="nav-link">Home</NavLink></li>
+                        <ul className="navbar-nav ms-auto">
+                            <li className="nav-item"><NavLink to="/" className="nav-link" style={{ color: "white"}}>Home</NavLink></li>
                             <li className="nav-item dropdown">
-                                <Link className="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" to="#">
+                                <Link className="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" to="#" style={{ color: "white"}}>
                                     Tickets
                                 </Link>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -30,14 +30,12 @@ function Header() {
                                         User: {getUsername()}
                                     </Link>
                                     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><Link to="/" onClick={logout} className="dropdown-item" >Logout</Link></li>
+                                        <li><Link to="/" onClick={logout} className="dropdown-item">Logout</Link></li>
                                     </ul>
                                 </li>
                             )}
                             {!isAuthenticated() && (
-                                <li className="nav-item"><NavLink to="/login"
-                                                                  className="nav-link">Login</NavLink>
-                                </li>
+                                <li className="nav-item"><NavLink to="/login" className="nav-link" style={{ color: "white"}}>Login</NavLink></li>
                             )}
                         </ul>
                     </div>
@@ -46,5 +44,8 @@ function Header() {
         </>
     );
 }
+
+
+
 
 export default Header;
