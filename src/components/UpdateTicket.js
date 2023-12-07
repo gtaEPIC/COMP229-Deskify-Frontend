@@ -103,7 +103,7 @@ const UpdateTicket = () => {
           <label> Status: </label>
           <br></br>
           <select name="status" id="Status" onChange={handleChange} value={ticket.status}>
-            <option value="Open">Open</option>
+            <option value="New">New</option>
             <option value="In Progress">In Progress</option>
             <option value="Resolved">Resolved</option>
             <option value="Closed">Closed</option>
