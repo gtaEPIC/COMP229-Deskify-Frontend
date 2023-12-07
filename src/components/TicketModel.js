@@ -1,5 +1,5 @@
 class TicketModel {
-    constructor(record, title, description, status, priority, dateCreated, updated, user, iteration) {
+    constructor(record, title, description, status, priority, dateCreated, updated, user, iteration, resolution) {
         this.record = record || "";
         this.title = title || "";
         this.description = description || "";
@@ -9,6 +9,7 @@ class TicketModel {
         this.updated = new Date(updated) || new Date();
         this.user = user || "";
         this.iteration = iteration || [];
+        this.resolution = resolution || null;
     }
 }
 

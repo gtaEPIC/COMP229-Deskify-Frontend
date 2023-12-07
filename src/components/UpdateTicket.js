@@ -9,7 +9,7 @@ const UpdateTicket = () => {
   const { id } = useParams();
   const [ticket, setTicket] = React.useState(new TicketModel());
   const { state } = useLocation();
-  const { from } = state || { from: { pathname: '/tickets' } };
+  const { from } = state || { from: { pathname: `/tickets/${id}` } };
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const UpdateTicket = () => {
           const data = await response.json();
             console.log(data);
           let dataTicket = data.ticket;
-          let t = new TicketModel(dataTicket.record, dataTicket.title, dataTicket.description, dataTicket.status, dataTicket.priority, dataTicket.dateCreated, dataTicket.updated, dataTicket.user.username, dataTicket.iteration)
+          let t = new TicketModel(dataTicket.record, dataTicket.title, dataTicket.description, dataTicket.status, dataTicket.priority, dataTicket.dateCreated, dataTicket.updated, dataTicket.user.username, dataTicket.iteration, dataTicket.resolution)
           t.comment = "";
           setTicket(t);
         } else {
@@ -103,21 +103,12 @@ const UpdateTicket = () => {
           <label> Status: </label>
           <br></br>
           <select name="status" id="Status" onChange={handleChange} value={ticket.status}>
-            <option value="Open">Open</option>
+            <option value="New">New</option>
             <option value="In Progress">In Progress</option>
             <option value="Resolved">Resolved</option>
             <option value="Closed">Closed</option>
             <option disabled={true} value="Cancelled">Cancelled</option>
           </select>
-          <br></br>
-          <label> Resolution: </label>
-          <br></br>
-          <input type='text' disabled={true} value={"To be implemented"} />
-          <br></br>
-          <label> Edit Comment: </label>
-          <br></br>
-          <input type='text' name={"comment"} onChange={handleChange} />
-          <br></br>
           <br></br>
           <button type="submit" className="btn btn-success">Submit</button>
         </form>
