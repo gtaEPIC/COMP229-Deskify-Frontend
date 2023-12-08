@@ -1,4 +1,5 @@
 // frontend/src/components/AddTicket.js
+import "./AddTicket.css"
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {isAuthenticated} from "../pages/login-helper";
@@ -44,20 +45,18 @@ const AddTicket = () => {
 
   return (
     <div>
-      <h2>Add New Ticket</h2>
-      <div style={{backgroundColor:'rgb(183, 56, 120)'}} >
+      <div style={{backgroundColor:'#08181C'}} >
         <center>
-          <div style={{backgroundColor:'rgb(237, 201, 219)', height: '700px', width: '600px'}}>
-            <form onSubmit={handleSubmit}>
-              <h1>Create a new ticket</h1>
-              <label> Title: </label>
-              <br></br>
-              <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
-              <br></br>
-              <label> Description  </label>
-              <br></br>
-              <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
-              <br></br>
+          <div>
+            <form className='createTicketForm' onSubmit={handleSubmit}>
+              <p className='ticketTitle'>Create a new ticket</p>
+              <div className='createTicket-input-container'>
+              <input type="text" name={"Title"}value={title} placeholder="Title" onChange={(e) => setTitle(e.target.value)} required></input>
+              <span></span>
+              </div>
+              <div className='createTicket-input-container'>
+              <input type="textarea" name={"Description"} value={description} placeholder="Description..." onChange={(e) => setDescription(e.target.value)} required></input>
+              </div>
               <button type="submit" className="btn btn-success">Submit</button>
             </form>
           </div>
