@@ -1,10 +1,11 @@
 .form {
-  background-color: #fff;
+  background-color: #163737; 
   display: block;
   padding: 1rem;
   max-width: 350px;
   border-radius: 0.5rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  margin: 0 auto; 
 }
 
 .title {
@@ -12,7 +13,7 @@
   line-height: 1.75rem;
   font-weight: 600;
   text-align: center;
-  color: #000;
+  color: #fff; 
 }
 
 .input-container {
@@ -42,7 +43,7 @@
   padding-bottom: 0.75rem;
   padding-left: 1.25rem;
   padding-right: 1.25rem;
-  background-color: #4F46E5;
+  background-color: #446E5F;
   color: #ffffff;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -60,5 +61,6 @@
 }
 
 .signup-link a {
+  color: #b3c1b4;
   text-decoration: underline;
 }

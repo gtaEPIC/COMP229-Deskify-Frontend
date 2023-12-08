@@ -44,7 +44,8 @@ function Login() {
   const unusedVariable = errorMsg;
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    <body>
+      <form className="form" onSubmit={handleSubmit}>
       <p className="title">Sign in to account</p>
       <div className="input-container">
         <input type="text" name={"username"} placeholder="Enter username" onChange={handleChange}></input>
@@ -54,8 +55,9 @@ function Login() {
         <input type="password" name={"password"} placeholder="Enter password" onChange={handleChange}></input>
       </div>
       <button type="submit" className="submit">Sign In</button>
-      <p className="signup-link">No account?<Link href=""> Sign up!</Link></p>
+      <p className="signup-link">No account? <Link to="/signup"> Sign up!</Link></p>
     </form>
+    </body>
   );
 }
 

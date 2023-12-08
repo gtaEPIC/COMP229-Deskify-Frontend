@@ -15,7 +15,7 @@ function Header() {
                 <div className="container-fluid">
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav ms-auto">
-                            <button><li className="nav-item"><NavLink to="/" className="nav-link" style={{ color: "#b3c1b4"}}>Home</NavLink></li></button>
+                            <button><li className="nav-item"><NavLink to="/" className="nav-link text-secondary">Home</NavLink></li></button>
                             <button><li className="nav-item dropdown">
                                 <Link className="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" to="#" style={{ color: "#b3c1b4"}}>
                                     Tickets
@@ -27,7 +27,7 @@ function Header() {
                             </li></button>
                             {isAuthenticated() && (
                                 <li className="nav-item dropdown">
-                                    <Link className="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" to="#">
+                                    <Link className="nav-link dropdown-toggle text-secondary" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" to="#">
                                         User: {getUsername()}
                                     </Link>
                                     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -36,10 +36,10 @@ function Header() {
                                 </li>
                             )}
                             {!isAuthenticated() && (
-                                <button><li className="nav-item"><NavLink to="/login" className="nav-link" style={{ color: "#b3c1b4"}}>Login</NavLink></li></button>
+                                <button><li className="nav-item"><NavLink to="/login" className="nav-link text-secondary">Login</NavLink></li></button>
                             )}
                             {!isAuthenticated() && (
-                                <button><li className="nav-item"><NavLink to="" className="nav-link" style={{ color: "#b3c1b4"}}>Sign-up</NavLink></li></button>
+                                <button><li className="nav-item"><NavLink to="/signup" className="nav-link text-secondary">Sign-up</NavLink></li></button>
                             )}
                         </ul>
                     </div>

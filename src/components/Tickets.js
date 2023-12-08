@@ -28,7 +28,7 @@ function Tickets() {
 
   return (
     <div>
-     <center><h2>Tickets</h2></center>
+     <center><h2 className={"text-primary"}>Tickets</h2></center>
         {isAuthenticated() && (
             <Link to="/tickets/new" className="btn btn-primary">
                 Create new tickets
