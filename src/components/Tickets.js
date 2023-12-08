@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import DeleteTicket from "./DeleteTicket";
 import {isAuthenticated} from "../pages/login-helper";
-import FailAlertMessage from "../FailAlertMessage";
+import FailAlertMessage from "./FailAlertMessage";
 
 let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 

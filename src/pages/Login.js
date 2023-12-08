@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { login } from "./api-login.js";
 import { authenticate } from './login-helper.js';
-import FailAlertMessage from '../FailAlertMessage';
+import FailAlertMessage from '../components/FailAlertMessage';
 
 function Login() {
   const { state } = useLocation();

@@ -1,6 +1,6 @@
 // FailAlertMessage.js
 import React, { useState, useEffect } from 'react';
-import './alertMessage.css';
+import '../alertMessage.css';
 
 function FailAlertMessage({ message, visible, handleDismiss }) {
     useEffect(() => {
