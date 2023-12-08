@@ -2,10 +2,10 @@ import { jwtDecode } from 'jwt-decode';
 
 function authenticate(jwt, cb) {
     if (typeof window !== "undefined") {
-        localStorage.setItem('jwt', jwt);
+        sessionStorage.setItem('jwt', jwt);
 
         let decoded = jwtDecode(jwt);
-        localStorage.setItem('username', decoded.username);
+        sessionStorage.setItem('username', decoded.username);
     }
     cb();
 }
@@ -15,8 +15,8 @@ function isAuthenticated() {
         return false
     }
 
-    if (localStorage.getItem('jwt')) {
-        return localStorage.getItem('jwt');
+    if (sessionStorage.getItem('jwt')) {
+        return sessionStorage.getItem('jwt');
     } else {
         return false;
     }
@@ -24,14 +24,14 @@ function isAuthenticated() {
 
 function logout() {
     if (typeof window !== "undefined") {
-        localStorage.removeItem('jwt');
-        localStorage.removeItem('username');
+        sessionStorage.removeItem('jwt');
+        sessionStorage.removeItem('username');
     }
 }
 
 function getUsername() {
     if (typeof window !== "undefined") {
-        return localStorage.getItem('username');
+        return sessionStorage.getItem('username');
     }
 }
 
