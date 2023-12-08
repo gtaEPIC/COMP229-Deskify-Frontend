@@ -10,7 +10,6 @@ function Signup(){
     const { from } = state || { from: { pathname: '/' } };
 
     let navigate = useNavigate();
-    const [errorMsg, setErrorMsg] = useState('');
     const [user, setUser] = useState({
         username:'',
         email: '',
@@ -24,50 +23,52 @@ function Signup(){
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (user.password !== user.confirmPassword) {
+            alert("Passwords don't match");
+            return;
+        }
         signup(user)
             .then((data) => {
                 if (data && data.success) {
                     authenticate(data.token, () => {
-                    navigate(from, { replace: true });
+                        navigate(from, { replace: true });
                     });
                 } else {
-                    setErrorMsg(data.message);
+                    alert(data.message);
                 }
             })
             .catch((err) => {
-                setErrorMsg(err.message);
+                alert(err.message);
                 console.log(err);
             });
     };
-
-    const unusedVariable = errorMsg;
     
     return(
         <body>
             <div className="registrationForm-container">
             <form class="registrationForm" onSubmit={handleSubmit}>
                 <p class="formTitle">Register </p>
-                <div class="flex">
-                    <label>
-                        <input required="" placeholder="" type="text" class="input" onChange={handleChange}></input>
-                        <span>Username</span>
-                    </label>
-                </div>  
                 <label>
-                    <input required="" placeholder="" type="email" class="input" onChange={handleChange}></input>
+                    <input type="text" onChange={handleChange} name={"username"} className={"input"}
+                           required={true}></input>
+                    <span>Username</span>
+                </label>
+                <label>
+                    <input type="email" onChange={handleChange} name={"email"} className={"input"}
+                           required={true}></input>
                     <span>Email</span>
                 </label> 
         
                 <label>
-                    <input required="" placeholder="" type="password" class="input" onChange={handleChange}></input>
+                    <input type="password" onChange={handleChange} name={"password"} className={"input"} required={true}></input>
                     <span>Password</span>
                 </label>
                 <label>
-                    <input required="" placeholder="" type="password" class="input" onChange={handleChange}></input>
+                    <input type="password" onChange={handleChange} name={"confirmPassword"} className={"input"} required={true}></input>
                     <span>Confirm password</span>
                 </label>
-                <button class="submitRegistration">Submit</button>
-                <p class="signin">Already have an acount ? <Link to="/login"> Sign In!</Link></p>
+                <button className="submitRegistration">Submit</button>
+                <p className="signin">Already have an account ? <Link to="/login"> Sign In!</Link></p>
             </form>
             </div>
         </body>
