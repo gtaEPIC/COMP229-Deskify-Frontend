@@ -37,11 +37,9 @@ function Tickets() {
             </Link>
         )}
         {!isAuthenticated() && (
-          <>
             <Link to="/login" className="btn btn-primary">
-            Login to create tickets
+                Login to create tickets
             </Link>
-          </>
         )}
       <br></br>
     <br></br>
