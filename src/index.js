@@ -25,7 +25,6 @@ root.render(
                     element={
                         <>
                             <Header />
-                            <br />
                             <Routes>
                                 <Route index element={<Main />} />
                                 <Route path="/tickets/new" element={<AddTicket />} />
