@@ -13,6 +13,7 @@ import Tickets from "./components/Tickets";
 import AddTicket from "./components/AddTicket";
 import View from "./components/View";
 import UpdateTicket from "./components/UpdateTicket";
+import Signup from './pages/Signup';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -32,6 +33,7 @@ root.render(
                                 <Route path="/tickets/:id" element={<View />} />
                                 <Route path="/tickets/" element={<Tickets />} />
                                 <Route path="/login" element={<Login />} />
+                                <Route path="/signup" element={<Signup />} />
                                 <Route path="*" element={<App />} />
                             </Routes>
                         </>

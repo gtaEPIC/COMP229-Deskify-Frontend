@@ -39,7 +39,7 @@ function Header() {
                                 <button><li className="nav-item"><NavLink to="/login" className="nav-link" style={{ color: "#b3c1b4"}}>Login</NavLink></li></button>
                             )}
                             {!isAuthenticated() && (
-                                <button><li className="nav-item"><NavLink to="" className="nav-link" style={{ color: "#b3c1b4"}}>Sign-up</NavLink></li></button>
+                                <button><li className="nav-item"><NavLink to="/signup" className="nav-link" style={{ color: "#b3c1b4"}}>Sign-up</NavLink></li></button>
                             )}
                         </ul>
                     </div>
