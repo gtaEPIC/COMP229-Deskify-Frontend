@@ -3,14 +3,17 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
+import "./App.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Header from './Header';
-import Home from './pages/Home';
-import Tickets from "./pages/Tickets";
-import NewTickets from "./pages/NewTickets";
 import Login from "./pages/Login";
+import Main from "./components/Main";
+import Tickets from "./components/Tickets";
+import AddTicket from "./components/AddTicket";
+import View from "./components/View";
+import UpdateTicket from "./components/UpdateTicket";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,8 +27,10 @@ root.render(
                             <Header />
                             <br />
                             <Routes>
-                                <Route index element={<Home />} />
-                                <Route path="/tickets/new" element={<NewTickets />} />
+                                <Route index element={<Main />} />
+                                <Route path="/tickets/new" element={<AddTicket />} />
+                                <Route path="/tickets/:id/edit" element={<UpdateTicket />} />
+                                <Route path="/tickets/:id" element={<View />} />
                                 <Route path="/tickets/" element={<Tickets />} />
                                 <Route path="/login" element={<Login />} />
                                 <Route path="*" element={<App />} />
