@@ -14,7 +14,7 @@ import Tickets from "./components/Tickets";
 import AddTicket from "./components/AddTicket";
 import View from "./components/View";
 import UpdateTicket from "./components/UpdateTicket";
-import Signup from './pages/Signup';
+import Signup from "./pages/Signup";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
