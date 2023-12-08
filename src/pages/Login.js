@@ -18,7 +18,6 @@ function Login() {
   });
 
   const [showFailAlert, setShowFailAlert] = useState(false);
-  const [failAlertMessage, setFailAlertMessage] = useState(''); // Add this line
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -40,14 +39,14 @@ function Login() {
           });
         } else if (data && data.status === 401) {
           setShowFailAlert(true);
-          setFailAlertMessage("Authentication failed. Please check your credentials.");
+          setErrorMsg("Authentication failed. Please check your credentials.");
         } else {
+          console.error(data);
           setErrorMsg(data.message);
         }
       })
       .catch((err) => {
         setShowFailAlert(true);
-        setFailAlertMessage("An unexpected error occurred. Please try again.");
         setErrorMsg(err.message);
         console.error(err);
       });
@@ -66,7 +65,7 @@ function Login() {
         </div>
         <button type="submit" className="submit">Sign In</button>
         <FailAlertMessage
-          message={failAlertMessage}
+          message={errorMsg}
           visible={showFailAlert}
           handleDismiss={handleDismissFailAlert}
         />
