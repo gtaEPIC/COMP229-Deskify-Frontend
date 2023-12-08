@@ -55,7 +55,7 @@ const AddTicket = () => {
               <span></span>
               </div>
               <div className='createTicket-input-container'>
-              <input type="textarea" name={"Description"} value={description} placeholder="Description..." onChange={(e) => setDescription(e.target.value)} required></input>
+              <textarea name={"Description"} placeholder="Description..." onChange={(e) => setDescription(e.target.value)} ></textarea>
               </div>
               <button type="submit" className="btn btn-success">Submit</button>
             </form>

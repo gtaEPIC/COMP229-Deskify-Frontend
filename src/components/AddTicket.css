@@ -26,7 +26,7 @@
   margin: 8px 0;
 }
 
-.createTicket-input-container input {
+.createTicket-input-container input, .createTicket-input-container textarea {
   background-color: #fff;
   padding: 1rem;
   padding-right: 3rem;

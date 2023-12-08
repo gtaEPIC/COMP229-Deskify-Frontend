@@ -3,7 +3,7 @@ import React from 'react';
 export default function Main() {
   return (
     <body>
-      <div style={{ backgroundColor: '#08181C', width: '700px', marginLeft: '20px', padding: '20px' }}>
+      <div style={{ backgroundColor: '#08181C', minHeight: '100vh', display: 'flex', flexDirection: 'column', padding: '20px', paddingTop: '20px',}}>
         <div>
           <div>
             <h2 className={"text-primary"}>Overview</h2>
