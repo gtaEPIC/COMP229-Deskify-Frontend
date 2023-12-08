@@ -2,21 +2,32 @@ import { jwtDecode } from 'jwt-decode';
 
 function authenticate(jwt, cb) {
     if (typeof window !== "undefined") {
-        localStorage.setItem('jwt', jwt);
+        sessionStorage.setItem('jwt', jwt);
 
         let decoded = jwtDecode(jwt);
-        localStorage.setItem('username', decoded.username);
+        sessionStorage.setItem('username', decoded.username);
     }
     cb();
+}
+
+function checkToken(token) {
+    let decoded = jwtDecode(token);
+    if (decoded.exp < Date.now() / 1000) {
+        sessionStorage.removeItem('jwt');
+        sessionStorage.removeItem('username');
+        return false;
+    }
+    return true;
 }
 
 function isAuthenticated() {
     if (typeof window == "undefined") {
         return false
     }
+    let token = sessionStorage.getItem('jwt');
 
-    if (localStorage.getItem('jwt')) {
-        return localStorage.getItem('jwt');
+    if (token) {
+        return checkToken(token);
     } else {
         return false;
     }
@@ -24,14 +35,14 @@ function isAuthenticated() {
 
 function logout() {
     if (typeof window !== "undefined") {
-        localStorage.removeItem('jwt');
-        localStorage.removeItem('username');
+        sessionStorage.removeItem('jwt');
+        sessionStorage.removeItem('username');
     }
 }
 
 function getUsername() {
     if (typeof window !== "undefined") {
-        return localStorage.getItem('username');
+        return sessionStorage.getItem('username');
     }
 }
 
