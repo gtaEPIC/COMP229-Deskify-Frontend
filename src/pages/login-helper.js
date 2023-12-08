@@ -10,13 +10,24 @@ function authenticate(jwt, cb) {
     cb();
 }
 
+function checkToken(token) {
+    let decoded = jwtDecode(token);
+    if (decoded.exp < Date.now() / 1000) {
+        sessionStorage.removeItem('jwt');
+        sessionStorage.removeItem('username');
+        return false;
+    }
+    return true;
+}
+
 function isAuthenticated() {
     if (typeof window == "undefined") {
         return false
     }
+    let token = sessionStorage.getItem('jwt');
 
-    if (sessionStorage.getItem('jwt')) {
-        return sessionStorage.getItem('jwt');
+    if (token) {
+        return checkToken(token);
     } else {
         return false;
     }
