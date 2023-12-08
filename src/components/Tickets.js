@@ -1,12 +1,13 @@
 import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import DeleteTicket from "./DeleteTicket";
 import {isAuthenticated} from "../pages/login-helper";
+import List from "./List";
 let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 
 function Tickets() {
     const [tickets, setTickets] = React.useState([]);
-    const [update, setUpdate] = React.useState(false);
+    const [hideClosedTickets, setHideClosedTickets] = React.useState(true);
+    const [loading, setLoading] = React.useState(true);
 
     useEffect(() => {
         const fetchTickets = async () => {
@@ -15,7 +16,11 @@ function Tickets() {
                 if (response.ok) {
                     const data = await response.json();
                     console.log(data);
+                    if (hideClosedTickets) {
+                        data.list = data.list.filter(t => t.status !== 'Closed' && t.status !== 'Resolved' && t.status !== 'Cancelled');
+                    }
                     setTickets(data.list);
+                    setLoading(false);
                 } else {
                     console.error('Failed to fetch tickets:', await response.text());
                 }
@@ -24,7 +29,7 @@ function Tickets() {
             }
         };
         fetchTickets().then(r => console.log(r));
-    }, [update]);
+    }, [hideClosedTickets]);
 
   return (
     <div>
@@ -39,49 +44,16 @@ function Tickets() {
                 Login to create tickets
             </Link>
         )}
-      <br></br>
-    <br></br>
-     <table className="table table-dark">
-  <thead>
-    <tr>
-      <th scope="col">Record</th>
-      <th scope="col">Title</th>
-      <th scope="col">Priority</th>
-      <th scope="col">Status</th>
-      <th scope="col">Created</th>
-      <th scope="col">Last Update</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-  {tickets.map(ticket => (
-      <tr>
-      <th scope="row">{ticket.record}</th>
-      <td>{ticket.title}</td>
-      <td>{ticket.priority}</td>
-      <td>{ticket.status}</td>
-      <td>{new Date(ticket.dateCreated).toLocaleString()}</td>
-      <td>{new Date(ticket.updated).toLocaleString()}</td>
-      <td><Link to={`/tickets/${ticket.record}`} className="btn btn-primary">
-        View
-      </Link>
-          {isAuthenticated() && (<DeleteTicket id={ticket.record} cb={() => setUpdate(!update)} />)}
-      </td>
-    </tr>
-  ))}
-  {
-    () => {
-        if (tickets.length === 0) {
-            return (
-                <tr>
-                    <td colSpan="7">No tickets found</td>
-                </tr>
-            )
-        }
-    }
-  }
-  </tbody>
-</table>
+        <button className="btn btn-secondary ms-2" onClick={() => {
+            setTickets([])
+            setLoading(true)
+            setHideClosedTickets(!hideClosedTickets)
+        }}>
+            {hideClosedTickets ? 'Show Closed Tickets' : 'Hide Closed Tickets'}
+        </button>
+        <br></br>
+        <br></br>
+        <List tickets={tickets} loading={loading} />
     </div>
   );
 }
