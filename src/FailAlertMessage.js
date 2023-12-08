@@ -1,29 +1,26 @@
+// FailAlertMessage.js
 import React, { useState, useEffect } from 'react';
 import './alertMessage.css';
 
-function FailAlertMessage() {
-    const [visible, setVisible] = useState(true);
-
+function FailAlertMessage({ message, visible, handleDismiss }) {
     useEffect(() => {
         const timer = setTimeout(() => {
-            setVisible(false);
+            handleDismiss();
         }, 4000);
 
         return () => {
             clearTimeout(timer);
         };
-    }, []);
+    }, [visible, handleDismiss]);
 
-    const handleDismiss = () => {
-        setVisible(false);
-    };
+    console.log('Rendering FailAlertMessage:', visible);
 
     return (
         <>
             {visible && (
-                <div className="alert alert-warning alert-dismissible fade show" style={{ margin: "0px", borderRadius: "0px" }}>
+                <div className="alert alert-danger alert-dismissible fade show">
                     <button type="button" className="btn-close" onClick={handleDismiss}></button>
-                    <strong>Warning!</strong> Please log into your account to create tickets!
+                    <strong>Fail - </strong> {message}
                 </div>
             )}
         </>

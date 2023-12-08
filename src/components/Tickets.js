@@ -39,8 +39,6 @@ function Tickets() {
         )}
         {!isAuthenticated() && (
           <>
-            <FailAlertMessage/>
-            <br/>
             <Link to="/login" className="btn btn-primary">
             Login to create tickets
             </Link>
