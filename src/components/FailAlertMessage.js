@@ -1,17 +1,19 @@
 // FailAlertMessage.js
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import '../alertMessage.css';
 
-function FailAlertMessage({ message, visible, handleDismiss }) {
+function FailAlertMessage({ message, visible, handleDismiss, timeout }) {
     useEffect(() => {
-        const timer = setTimeout(() => {
-            handleDismiss();
-        }, 4000);
+        if (timeout) { // Allows the error to forever be displayed if timeout is not set
+            const timer = setTimeout(() => {
+                handleDismiss();
+            }, timeout);
 
-        return () => {
-            clearTimeout(timer);
-        };
-    }, [visible, handleDismiss]);
+            return () => {
+                clearTimeout(timer);
+            };
+        }
+    }, [visible, handleDismiss, timeout]);
 
     console.log('Rendering FailAlertMessage:', visible);
 
