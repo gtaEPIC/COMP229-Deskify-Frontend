@@ -3,11 +3,15 @@ import React, { useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { authenticate } from "./login-helper";
 import { signup } from "./api-signup";
+import FailAlertMessage from "../components/FailAlertMessage";
 
 function Signup(){
 
     const { state } = useLocation();
     const { from } = state || { from: { pathname: '/' } };
+
+    const [errorMsg, setErrorMsg] = useState('');
+    const [showFailAlert, setShowFailAlert] = useState(false);
 
     let navigate = useNavigate();
     const [user, setUser] = useState({
@@ -34,12 +38,17 @@ function Signup(){
                         navigate(from, { replace: true });
                     });
                 } else {
-                    alert(data.message);
+                    // alert(data.message);
+                    console.error(data);
+                    setErrorMsg(data.message);
+                    setShowFailAlert(true);
                 }
             })
             .catch((err) => {
-                alert(err.message);
+                // alert(err.message);
                 console.log(err);
+                setErrorMsg(err.message);
+                setShowFailAlert(true);
             });
     };
     
@@ -68,6 +77,11 @@ function Signup(){
                     <span>Confirm password</span>
                 </label>
                 <button className="submitRegistration">Submit</button>
+                <FailAlertMessage
+                    message={errorMsg}
+                    visible={showFailAlert}
+                    handleDismiss={() => setShowFailAlert(false)}
+                    />
                 <p className="signin">Already have an account ? <Link to="/login"> Sign In!</Link></p>
             </form>
             </div>

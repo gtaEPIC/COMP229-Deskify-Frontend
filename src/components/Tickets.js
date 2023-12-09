@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import DeleteTicket from "./DeleteTicket";
 import {isAuthenticated} from "../pages/login-helper";
-import FailAlertMessage from "../FailAlertMessage";
 
 let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 
@@ -38,11 +37,9 @@ function Tickets() {
             </Link>
         )}
         {!isAuthenticated() && (
-          <>
             <Link to="/login" className="btn btn-primary">
-            Login to create tickets
+                Login to create tickets
             </Link>
-          </>
         )}
       <br></br>
     <br></br>
