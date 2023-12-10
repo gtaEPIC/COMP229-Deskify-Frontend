@@ -1,9 +1,11 @@
 // frontend/src/components/UpdateTicket.js
+import './View.css';
 import React, {  useEffect } from 'react';
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import TicketModel from "./TicketModel";
 import {isAuthenticated} from "../pages/login-helper";
 let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
+
 
 const UpdateTicket = () => {
   const { id } = useParams();
@@ -86,21 +88,21 @@ const UpdateTicket = () => {
   }
 
   return (
-  <div style={{ backgroundColor: 'rgb(183, 56, 120)' }} >
+  <div style={{ backgroundColor: '#08181C' }} >
     <center>
-      <div style={{ backgroundColor: 'rgb(237, 201, 219)', height: '700px', width: '600px' }}>
+      <div className='updateTicket'>
         <h2>Update Ticket</h2>
         <form onSubmit={handleSubmit}>
-          <label> Title: </label>
+          <label className='updateLabel'> Title: </label>
           <br></br>
           <input type='text' name="title" value={ticket.title} onChange={handleChange} />
           <br></br>
-          <label> Description  </label>
+          <label className='updateLabel'> Description  </label>
           <br></br>
           <textarea rows="10" cols="50" name="description" onChange={handleChange} value={ticket.description}>
           </textarea>
           <br></br>
-          <label> Status: </label>
+          <label className='updateLabel'> Status: </label>
           <br></br>
           <select name="status" id="Status" onChange={handleChange} value={ticket.status}>
             <option value="New">New</option>
@@ -110,7 +112,7 @@ const UpdateTicket = () => {
             <option disabled={true} value="Cancelled">Cancelled</option>
           </select>
           <br></br>
-          <button type="submit" className="btn btn-success">Submit</button>
+          <button type="submit" className="updateButton">Submit</button>
         </form>
       </div>
     </center>
