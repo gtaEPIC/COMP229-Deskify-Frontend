@@ -1,0 +1,76 @@
+.ticketInfo {
+    float: center;
+    background-color: #163737;
+    width: 700px;
+    padding: 20px;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px; 
+    color: #88a590;  
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
+.editTicket{
+    text-align: left;
+}
+
+.logs {
+    float: center; 
+    clear: left; /* Ensure .logs starts below .ticketInfo */
+    background-color: #163737;
+    width: 700px;
+    padding: 20px;
+    border-radius: 10px;
+    margin-right: 10px; 
+    margin-top: 10px; /* Add margin-top to create space between .ticketInfo and .logs */
+    color: #88a590;  
+}
+
+.comment {
+    float: center;
+    background-color: #163737;
+    width: 700px;
+    height: 134px;
+    padding: 20px;
+    border-radius: 10px;
+    margin-right: 10px; 
+    margin-top: 10px;
+    color: #88a590; 
+}
+
+.updateTicket {
+    background-color: #163737;
+    width: 500px;
+    height: 540px;
+    padding: 20px;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #88a590;
+    text-align: left; 
+}
+
+.updateLabel {
+    color: #88a590;
+}
+
+.updateButton{
+    margin-top: 10px;
+}
+
+

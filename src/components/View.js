@@ -1,3 +1,4 @@
+import './View.css';
 import React, {useEffect} from 'react'
 import {Link, useParams} from 'react-router-dom';
 import TicketModel from "./TicketModel"
@@ -34,33 +35,42 @@ export default function View() {
 
   return (
     <div>
-        <div style={{backgroundColor:'rgb(183, 56, 120)',minHeight: '100vh',padding: '20px', paddingTop: '20px',}} >
-        <center><h1>Ticket {ticket.record}</h1></center>
         <br></br>
-            {isAuthenticated() && (<Link to={`/tickets/${id}/edit`} className="btn btn-primary">
-                Edit
-            </Link>)}
-            {!isAuthenticated() && (
-                <Link to="/login" className="btn btn-primary">
-                    Login to edit tickets
-                </Link>
-            )}
+        <br></br>
+        <center> 
+            <div className="ticketInfo">
+		        <div>
+			        <p class="title">Title: {ticket.title}</p>
+                    <ul className=''>
+                    <li>Description: {ticket.description}</li>
+                    <li>Created: {ticket.dateCreated.toLocaleString()}</li>
+                    <li>Updated: {ticket.updated.toLocaleString()}</li>
+                    <li>Status: {ticket.status}</li>
+                    <li>Priority: {ticket.priority}</li>
+                    <li>User: {ticket.user}</li>
+                    <li>Resolution: {ticket.resolution ?
+                    <ScrollLink to={ticket.resolution._id} smooth={true} duration={250}
+                        className={"badge bg-success"}>Resolved</ScrollLink>
+                        :
+                    <button className="button">Unresolved</button>
+                    }</li>
+                    </ul>
+                    <div className= 'editTicket'>
+                        <br></br>
+                        {isAuthenticated() && (<Link to={`/tickets/${id}/edit`} className="btn btn-primary">
+                            Edit
+                        </Link>)}
+                        {!isAuthenticated() && (
+                            <Link to="/login" className="btn btn-primary">
+                            Login to edit tickets
+                        </Link>
+                        )}
+                    </div>
+		        </div>
+	        </div>
 
-        <br></br>
-        <br></br>
-        <center> <h1>Title: {ticket.title}</h1>
-        <p>Description:<br /> {ticket.description}</p>
-        <p>Created: {ticket.dateCreated.toLocaleString()}</p>
-        <p>Updated: {ticket.updated.toLocaleString()}</p>
-        <p>Status: {ticket.status}</p>
-        <p>Priority: {ticket.priority}</p>
-        <p>User: {ticket.user}</p>
-        <p>Resolution: {ticket.resolution ?
-            <ScrollLink to={ticket.resolution._id} smooth={true} duration={250}
-               className={"badge bg-success"}>Resolved</ScrollLink>
-            :
-            <button className={"badge bg-dark"}>Unresolved</button>
-        }</p>
+            
+            <div className='logs'>
             <h3> Logs: </h3>
             {ticket.iteration.map(log => (
                 <div
@@ -90,15 +100,14 @@ export default function View() {
                     </div>
                 </div>
             ))}
-            <AddComment ticket={ticket.record} cb={() => {
-                // Force a re-render
-                setUpdate(!update)
-            }} />
+            </div>
+            <div className='comment'>
+                <AddComment ticket={ticket.record} cb={() => {
+                    // Force a re-render
+                    setUpdate(!update)
+                }} />
+            </div>
         </center>
-
-
-        </div>
-
     </div>
   )
 }
