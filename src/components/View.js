@@ -90,10 +90,12 @@ export default function View() {
                     </div>
                 </div>
             ))}
-            <AddComment ticket={ticket.record} cb={() => {
-                // Force a re-render
-                setUpdate(!update)
-            }} />
+            {isAuthenticated() && (
+                <AddComment ticket={ticket.record} cb={() => {
+                    // Force a re-render
+                    setUpdate(!update)
+                }} />
+            )}
         </center>
 
 
