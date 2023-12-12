@@ -1,0 +1,55 @@
+/* profile.css */
+
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-heading {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .user-info {
+    margin-bottom: 20px;
+  }
+  
+  .info-text {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .welcome-message {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
+  .admin-info {
+    margin-top: 20px;
+  }
+  
+  .admin-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #28a745;
+  }
+  
+  .admin-perks {
+    list-style: none;
+    padding-left: 20px;
+    font-size: 16px;
+    color: #28a745;
+  }
+  
+  .admin-intro {
+    font-size: 18px;
+    color: #ff5622d0;
+}
