@@ -1,11 +1,11 @@
 // Profile.js
 import React, { useEffect, useState } from 'react';
-import { getUsername } from '../pages/login-helper';
+import { getUsername, promoteToAdmin } from '../pages/login-helper';
 import './Profile.css';
-
 
 function Profile() {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [promoteUsername, setPromoteUsername] = useState('');
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -23,6 +23,10 @@ function Profile() {
   }, []);
 
   const username = getUsername();
+
+  const handlePromoteClick = () => {
+    promoteToAdmin(promoteUsername);
+  };
 
   return (
     <div className="profile-container">
@@ -43,6 +47,17 @@ function Profile() {
               <li>Access admin-only features</li>
             </ul>
           </div>
+
+          {/* Add a form or button for promoting another user to admin */}
+          <div className="promote-admin-form">
+            <input
+              type="text"
+              placeholder="Enter username to promote"
+              value={promoteUsername}
+              onChange={(e) => setPromoteUsername(e.target.value)}
+            />
+            <button onClick={handlePromoteClick}>Promote to Admin</button>
+          </div>
         </>
       )}
 
@@ -55,4 +70,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default Profile;

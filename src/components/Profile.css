@@ -51,5 +51,29 @@
   
   .admin-intro {
     font-size: 18px;
-    color: #ff5622d0;
-}
+    color: #ff5622d0;
+  }
+  
+  /* Styles for promoting to admin form */
+  .promote-admin-form {
+    margin-top: 20px;
+  }
+  
+  .promote-admin-form input {
+    padding: 8px;
+    margin-right: 10px;
+  }
+  
+  .promote-admin-form button {
+    padding: 8px 16px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .promote-admin-form button:hover {
+    background-color: #218838;
+  }
+  
