@@ -1,9 +1,9 @@
 // Header.js
 
-import React, { useState } from 'react';
-import {NavLink, Link, useLocation} from 'react-router-dom';
+import React from 'react';
+import {NavLink, Link} from 'react-router-dom';
 import logo from './images/logo.png';
-import { getUsername, isAuthenticated, logout, getIsAdmin } from './pages/login-helper';
+import { getUsername, isAuthenticated, logout } from './pages/login-helper';
 import './header.css';
 
 function Header() {
@@ -12,8 +12,6 @@ function Header() {
   // const handleUserProfileClick = () => {
   //   setShowUserProfile(!showUserProfile);
   // };
-
-  const loc = useLocation();
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: '#08181C', padding: 0, height: '64px' }}>
