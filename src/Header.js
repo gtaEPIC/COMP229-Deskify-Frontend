@@ -6,7 +6,6 @@ import logo from './images/logo.png';
 import { getUsername, isAuthenticated, logout, getIsAdmin } from './pages/login-helper';
 import './header.css';
 
-
 function Header() {
   const [showUserProfile, setShowUserProfile] = useState(false);
 
