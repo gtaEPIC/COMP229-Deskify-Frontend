@@ -2,7 +2,6 @@ import {Link, NavLink, useLocation} from "react-router-dom";
 import logo from "./images/logo.png";
 import {getUsername, isAuthenticated, logout} from "./pages/login-helper";
 import'./header.css';
-import SuccessAlertMessage from "./SuccessAlertMessage";
 
 
 function Header() {

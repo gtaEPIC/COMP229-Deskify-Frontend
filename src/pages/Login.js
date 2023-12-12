@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { login } from "./api-login.js";
 import { authenticate } from './login-helper.js';
-import FailAlertMessage from '../components/FailAlertMessage';
+import FailAlertMessage from '../components/FailAlertMessage.js';
 
 function Login() {
   const { state } = useLocation();
@@ -12,6 +12,7 @@ function Login() {
   const navigate = useNavigate();
 
   const [errorMsg, setErrorMsg] = useState('');
+
   const [user, setUser] = useState({
     username: '',
     password: ''
@@ -68,6 +69,7 @@ function Login() {
           message={errorMsg}
           visible={showFailAlert}
           handleDismiss={handleDismissFailAlert}
+          timeout={4000}
         />
         <p className="signup-link">No account? <Link to="/signup"> Sign up!</Link></p>
       </form>

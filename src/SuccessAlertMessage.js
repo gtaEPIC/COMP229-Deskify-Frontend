@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './alertMessage.css';
 
 function SuccessAlertMessage() {
     const [visible, setVisible] = useState(true);
