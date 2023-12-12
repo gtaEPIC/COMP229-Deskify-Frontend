@@ -9,7 +9,11 @@ const login = async (user) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(user)
-        })
+        });
+        if (!response.ok) {
+            console.log(response);
+            return {success: false, message: "Login failed", status: response.status};
+        }
         return await response.json()
     } catch (err) {
         console.log(err)

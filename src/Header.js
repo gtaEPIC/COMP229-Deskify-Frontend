@@ -3,6 +3,7 @@ import logo from "./images/logo.png";
 import {getUsername, isAuthenticated, logout} from "./pages/login-helper";
 import'./header.css';
 
+
 function Header() {
     // eslint-disable-next-line no-unused-vars
     const loc = useLocation();
