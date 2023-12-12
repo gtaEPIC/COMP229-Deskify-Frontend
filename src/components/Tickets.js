@@ -4,6 +4,7 @@ import {isAuthenticated} from "../pages/login-helper";
 import List from "./List";
 let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 
+
 function Tickets() {
     const [tickets, setTickets] = React.useState([]);
     const [hideClosedTickets, setHideClosedTickets] = React.useState(true);

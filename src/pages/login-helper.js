@@ -1,23 +1,14 @@
 // login-helper.js
-const jwtDecode = require('jwt-decode');
-
-let decoded;
+const {jwtDecode} = require('jwt-decode');
+let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 
 function authenticate(jwt, cb) {
   if (typeof window !== "undefined") {
-    const existingJwt = sessionStorage.getItem('jwt');
-    const existingUsers = JSON.parse(sessionStorage.getItem('users')) || [];
-
-    if (!existingJwt && existingUsers.length === 0) {
-      // First user registration, set as admin
-      sessionStorage.setItem('getIsAdmin', 'true');
-    } else {
-      decoded = jwtDecode(jwt);
-      sessionStorage.setItem('getIsAdmin', decoded.isAdmin);
-    }
-
     sessionStorage.setItem('jwt', jwt);
+
+    let decoded = jwtDecode(jwt);
     sessionStorage.setItem('username', decoded.username);
+    sessionStorage.setItem('isAdmin', (decoded.type === 'admin').toString())
   }
   cb();
 }
@@ -27,7 +18,7 @@ function checkToken(token) {
   if (decoded.exp < Date.now() / 1000) {
     sessionStorage.removeItem('jwt');
     sessionStorage.removeItem('username');
-    sessionStorage.removeItem('getIsAdmin');
+    sessionStorage.removeItem('isAdmin');
     return false;
   }
   return true;
@@ -50,7 +41,7 @@ function logout() {
   if (typeof window !== "undefined") {
     sessionStorage.removeItem('jwt');
     sessionStorage.removeItem('username');
-    sessionStorage.removeItem('getIsAdmin');
+    sessionStorage.removeItem('isAdmin');
   }
 }
 
@@ -62,14 +53,24 @@ function getUsername() {
 
 function getIsAdmin() {
   if (typeof window !== 'undefined') {
-    return sessionStorage.getItem('getIsAdmin') === 'true';
+    return sessionStorage.getItem('isAdmin') === 'true';
   }
 }
 
 async function promoteToAdmin(username) {
   try {
-    //  promote the user to admin
-    console.log(`User ${username} promoted to admin`);
+    let request = {
+      username,
+      type: 'admin'
+    }
+
+    // TEMPORARY: Until the backend has this implemented, this is just a dummy fetch
+    fetch(apiURL + "/users/" + username,{
+      method: "PUT",
+      headers: {
+        "Authorization": ""
+      }
+    })
   } catch (error) {
     console.error('Error promoting user to admin', error);
   }
