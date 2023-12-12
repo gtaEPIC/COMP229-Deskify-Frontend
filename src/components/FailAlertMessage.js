@@ -1,9 +1,8 @@
-// FailAlertMessage.js
 import React, { useEffect } from 'react';
 
 function FailAlertMessage({ message, visible, handleDismiss, timeout }) {
     useEffect(() => {
-        if (timeout) { // Allows the error to forever be displayed if timeout is not set
+        if (timeout) {
             const timer = setTimeout(() => {
                 handleDismiss();
             }, timeout);
@@ -20,7 +19,7 @@ function FailAlertMessage({ message, visible, handleDismiss, timeout }) {
         <>
             {visible && (
                 <div className="alert alert-danger alert-dismissible fade show">
-                    <button type="button" className="btn-close" onClick={handleDismiss}></button>
+                    <button style={{ height: '2px', width: '2px' }} type="button" className="btn-close" onClick={handleDismiss}></button>
                     <strong>Fail - </strong> {message}
                 </div>
             )}

@@ -42,6 +42,7 @@ function Login() {
           setShowFailAlert(true);
           setErrorMsg("Authentication failed. Please check your credentials.");
         } else {
+          setShowFailAlert(true)
           console.error(data);
           setErrorMsg(data.message);
         }
@@ -65,13 +66,13 @@ function Login() {
           <input type="password" name="password" placeholder="Enter password" onChange={handleChange}></input>
         </div>
         <button type="submit" className="submit">Sign In</button>
+        <p className="signup-link">No account? <Link to="/signup"> Sign up!</Link></p>
         <FailAlertMessage
           message={errorMsg}
           visible={showFailAlert}
           handleDismiss={handleDismissFailAlert}
           timeout={4000}
         />
-        <p className="signup-link">No account? <Link to="/signup"> Sign up!</Link></p>
       </form>
     </body>
   );
