@@ -1,0 +1,28 @@
+/* TicketDetails.css */
+.ticket-details .field {
+    margin-bottom: 20px;
+  }
+  
+  .ticket-details label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .greyed-out {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  
+  .ticket-details input, .ticket-details textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .ticket-details textarea {
+    height: 100px;
+  }
+
+  
