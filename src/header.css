@@ -5,8 +5,8 @@ button {
   border: none;
   border-radius: 8px;
   border-color: #163737;
-  width: 100px;
-  height: 45px;
+  /*width: 100px;*/
+  /*height: 45px;*/
   transition: .3s;
   margin-right: 10px;
 }
