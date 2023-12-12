@@ -1,13 +1,23 @@
 // login-helper.js
-import { jwtDecode } from 'jwt-decode';
+const jwtDecode = require('jwt-decode');
+
+let decoded;
 
 function authenticate(jwt, cb) {
   if (typeof window !== "undefined") {
-    sessionStorage.setItem('jwt', jwt);
+    const existingJwt = sessionStorage.getItem('jwt');
+    const existingUsers = JSON.parse(sessionStorage.getItem('users')) || [];
 
-    let decoded = jwtDecode(jwt);
+    if (!existingJwt && existingUsers.length === 0) {
+      // First user registration, set as admin
+      sessionStorage.setItem('getIsAdmin', 'true');
+    } else {
+      decoded = jwtDecode(jwt);
+      sessionStorage.setItem('getIsAdmin', decoded.isAdmin);
+    }
+
+    sessionStorage.setItem('jwt', jwt);
     sessionStorage.setItem('username', decoded.username);
-    sessionStorage.setItem('isAdmin', decoded.isAdmin); // Assuming isAdmin is present in the JWT
   }
   cb();
 }
@@ -17,7 +27,7 @@ function checkToken(token) {
   if (decoded.exp < Date.now() / 1000) {
     sessionStorage.removeItem('jwt');
     sessionStorage.removeItem('username');
-    sessionStorage.removeItem('isAdmin');
+    sessionStorage.removeItem('getIsAdmin');
     return false;
   }
   return true;
@@ -40,7 +50,7 @@ function logout() {
   if (typeof window !== "undefined") {
     sessionStorage.removeItem('jwt');
     sessionStorage.removeItem('username');
-    sessionStorage.removeItem('isAdmin');
+    sessionStorage.removeItem('getIsAdmin');
   }
 }
 
@@ -52,12 +62,17 @@ function getUsername() {
 
 function getIsAdmin() {
   if (typeof window !== 'undefined') {
-    return sessionStorage.getItem('isAdmin') === 'true';
+    return sessionStorage.getItem('getIsAdmin') === 'true';
   }
 }
 
-function promoteToAdmin(username) {
-  console.log(`User ${username} promoted to admin`);
+async function promoteToAdmin(username) {
+  try {
+    //  promote the user to admin
+    console.log(`User ${username} promoted to admin`);
+  } catch (error) {
+    console.error('Error promoting user to admin', error);
+  }
 }
 
-export { authenticate, isAuthenticated, logout, getUsername, getIsAdmin, promoteToAdmin };
+module.exports = { authenticate, isAuthenticated, logout, getUsername, getIsAdmin, promoteToAdmin };

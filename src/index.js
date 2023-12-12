@@ -17,7 +17,6 @@ import UpdateTicket from "./components/UpdateTicket";
 import Profile from "./components/Profile"; 
 import Signup from "./pages/Signup";
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
@@ -35,7 +34,7 @@ root.render(
                                 <Route path="/tickets/:id" element={<View />} />
                                 <Route path="/tickets/" element={<Tickets />} />
                                 <Route path="/login/" element={<Login />} />
-                                <Route path="/profile" element={<Profile/>} />
+                                <Route path="/profile" element={<Profile />} />
                                 <Route path="/signup" element={<Signup />} />
                                 <Route path="*" element={<App />} />
                             </Routes>
