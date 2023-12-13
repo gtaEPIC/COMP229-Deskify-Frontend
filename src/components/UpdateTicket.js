@@ -1,9 +1,10 @@
 // frontend/src/components/UpdateTicket.js
 import './View.css';
+import "./AddTicket.css"
 import React, {  useEffect } from 'react';
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import TicketModel from "./TicketModel";
-import {isAuthenticated} from "../pages/login-helper";
+import {getIsAdmin, isAuthenticated} from "../pages/login-helper";
 let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 
 
@@ -93,26 +94,45 @@ const UpdateTicket = () => {
       <div className='updateTicket'>
         <h2>Update Ticket</h2>
         <form onSubmit={handleSubmit}>
-          <label className='updateLabel'> Title: </label>
-          <br></br>
-          <input type='text' name="title" value={ticket.title} onChange={handleChange} />
-          <br></br>
-          <label className='updateLabel'> Description  </label>
-          <br></br>
-          <textarea rows="10" cols="50" name="description" onChange={handleChange} value={ticket.description}>
-          </textarea>
-          <br></br>
-          <label className='updateLabel'> Status: </label>
-          <br></br>
-          <select name="status" id="Status" onChange={handleChange} value={ticket.status}>
-            <option value="New">New</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Resolved">Resolved</option>
-            <option value="Closed">Closed</option>
-            <option disabled={true} value="Cancelled">Cancelled</option>
-          </select>
-          <br></br>
-          <button type="submit" className="updateButton">Submit</button>
+          <div className="input-container">
+            <label> Title: </label>
+            <br />
+            <center>
+              <input type='text' className="createTicketForm align-content-center" name="title" value={ticket.title}
+                     onChange={handleChange}/>
+            </center>
+
+          </div>
+          <div className="input-container">
+            <label> Description: </label>
+            <br/>
+            <textarea rows="1" cols="80" name="description" className="createTicketForm bg-white" onChange={handleChange} value={ticket.description}>
+                </textarea>
+          </div>
+          <div className="input-container">
+            <label className='updateLabel'> Status: {getIsAdmin() ? "" : "(admin use only)"} </label>
+            <br />
+            <select name="status" id="Status" className="createTicketForm bg-white" onChange={handleChange} value={ticket.status} disabled={!getIsAdmin()}>
+              <option value="New">New</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Resolved">Resolved</option>
+              <option value="Closed">Closed</option>
+              <option disabled={true} value="Cancelled">Cancelled</option>
+            </select>
+          </div>
+          <div className="input-container">
+            <label className='updateLabel'> Priority: {getIsAdmin() ? "" : "(admin use only)"} </label>
+            <br />
+            <center>
+              <input type={"number"} name={"priority"} className="createTicketForm bg-white" onChange={handleChange}
+                     value={ticket.priority} disabled={!getIsAdmin()}/>
+            </center>
+          </div>
+          <span className='updateLabel'> Resolution: </span>
+          <label className='updateLabel'> {ticket.resolution ? ticket.resolution.comment : "None Yet"} </label>
+          <center>
+            <button type="submit" className="btn-success btn w-100">Submit</button>
+          </center>
         </form>
       </div>
     </center>
