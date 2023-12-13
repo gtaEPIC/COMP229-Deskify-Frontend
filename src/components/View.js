@@ -2,7 +2,7 @@ import './View.css';
 import React, {useEffect} from 'react'
 import {Link, useParams} from 'react-router-dom';
 import TicketModel from "./TicketModel"
-import {isAuthenticated} from "../pages/login-helper";
+import {getIsAdmin, getUsername, isAuthenticated} from "../pages/login-helper";
 import {Link as ScrollLink} from 'react-scroll';
 import ResolveTicket, {UnresolveTicket} from "./Resolution";
 import AddComment from "./AddComment";
@@ -57,8 +57,11 @@ export default function View() {
                     </ul>
                     <div className= 'editTicket'>
                         <br></br>
-                        {isAuthenticated() && (<Link to={`/tickets/${id}/edit`} className="btn btn-primary">
+                        {isAuthenticated() && (getUsername() === ticket.user || getIsAdmin()) && (<Link to={`/tickets/${id}/edit`} className="btn btn-primary">
                             Edit
+                        </Link>)}
+                        {isAuthenticated() && (getUsername() !== ticket.user && !getIsAdmin()) && (<Link to={"#"} className="btn btn-secondary disabled">
+                            You must own this ticket to edit it
                         </Link>)}
                         {!isAuthenticated() && (
                             <Link to="/login" className="btn btn-primary">
@@ -86,14 +89,16 @@ export default function View() {
                             </div>
                             <div className={"row"}>
                                 <div className={"col"}>
-                                    <ResolveTicket ticket={ticket} iteration={log} cb={() => {
-                                        // Force a re-render
-                                        setUpdate(!update)
-                                    }}/>
-                                    <UnresolveTicket ticket={ticket} iteration={log} cb={() => {
-                                        // Force a re-render
-                                        setUpdate(!update)
-                                    }} />
+                                    {isAuthenticated() && (getUsername() === log.user.username || getIsAdmin()) && (<>
+                                        <ResolveTicket ticket={ticket} iteration={log} cb={() => {
+                                            // Force a re-render
+                                            setUpdate(!update)
+                                        }}/>
+                                        <UnresolveTicket ticket={ticket} iteration={log} cb={() => {
+                                            // Force a re-render
+                                            setUpdate(!update)
+                                        }} />
+                                    </>)}
                                 </div>
                             </div>
                         </div>
@@ -101,14 +106,14 @@ export default function View() {
                 </div>
             ))}
             </div>
-            <div className='comment'>
-                {isAuthenticated() && (
+            {isAuthenticated() && (
+                <div className='comment'>
                     <AddComment ticket={ticket.record} cb={() => {
                         // Force a re-render
                         setUpdate(!update)
-                    }} />
-                )}
-            </div>
+                    }}/>
+                </div>
+            )}
         </center>
     </div>
   )
