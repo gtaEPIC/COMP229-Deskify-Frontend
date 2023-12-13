@@ -17,7 +17,7 @@ function Header() {
   const loc = useLocation();
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: 'rgb(87, 183, 150, 0.7)', padding: 0, height: '64px' }}>
+    <nav className="navbar navbar-expand-lg navbar-dark" style={{ background: 'linear-gradient(to top, rgb(29, 40, 25), rgb(80, 141, 153))', padding: 0, height: '64px', marginBottom:"20px" }}>
       <NavLink to="#" className="navbar-brand" style={{ marginLeft: '0px' }}>
         <img src={logo} alt="logo" height="64" />
       </NavLink>

@@ -36,7 +36,7 @@ export default function Main() {
       <div style={{ backgroundColor: '#08181C', minHeight: '100vh', display: 'flex', flexDirection: 'column', padding:"20px", paddingTop: '20px',}}>
         <div>
           <div>
-            <h1 style={{color:"white", textAlign:"center", paddingLeft:"100px", paddingRight:"100px", paddingTop:"100px", paddingBottom:"20px"}}>Empower Your Team, Unleash Creativity: Where Collaboration Meets Simplicity!</h1>
+            <h1 style={{color:"white", textAlign:"center", paddingLeft:"100px", paddingRight:"100px", paddingTop:"80px", paddingBottom:"20px"}}>Empower Your Team, Unleash Creativity: Where Collaboration Meets Simplicity!</h1>
             
             <table style={{width:"100%"}}>
               <tr>
