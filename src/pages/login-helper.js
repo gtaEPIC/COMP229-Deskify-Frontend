@@ -8,7 +8,7 @@ function authenticate(jwt, cb) {
 
     let decoded = jwtDecode(jwt);
     sessionStorage.setItem('username', decoded.username);
-    sessionStorage.setItem('isAdmin', (decoded.type === 'admin').toString())
+    sessionStorage.setItem('isAdmin', (decoded.isAdmin).toString())
   }
   cb();
 }
@@ -57,23 +57,4 @@ function getIsAdmin() {
   }
 }
 
-async function promoteToAdmin(username) {
-  try {
-    let request = {
-      username,
-      type: 'admin'
-    }
-
-    // TEMPORARY: Until the backend has this implemented, this is just a dummy fetch
-    fetch(apiURL + "/users/" + username,{
-      method: "PUT",
-      headers: {
-        "Authorization": ""
-      }
-    })
-  } catch (error) {
-    console.error('Error promoting user to admin', error);
-  }
-}
-
-module.exports = { authenticate, isAuthenticated, logout, getUsername, getIsAdmin, promoteToAdmin };
+module.exports = { authenticate, isAuthenticated, logout, getUsername, getIsAdmin };
