@@ -124,16 +124,17 @@ function Profile() {
               {changePassword ? (
                 <input type="password" className={"w-100"} name={"password"} value={profile.password} placeholder="New Password" onChange={(e) => setProfile({...profile, password: e.target.value})}></input>
               ) : (
-                <button className="btn btn-primary w-100" onClick={() => setChangePassword(true)}>Change Password</button>
+                <button className="btn btn-primary w-100" onClick={() => setChangePassword(true)} style={{backgroundColor:"#325573"}}>Change Password</button>
               )}
           </div>
           <div className="input-container">
+            <span className="text-white">Email</span>
               <input type="email" className={"w-100"} name={"email"} value={profile.email} placeholder="Email" onChange={(e) => setProfile({...profile, email: e.target.value})}></input>
           </div>
 
           <FailAlertMessage message={error} visible={error !== null} handleDismiss={() => setError(null)} />
 
-          <button type="submit" className="btn btn-success w-100" onClick={handleSubmit}>Submit</button>
+          <button type="submit" className="btn btn-success w-100" onClick={handleSubmit} style={{backgroundColor:"#4D7062"}}>Submit</button>
       </form>
 
         {getIsAdmin() ? (

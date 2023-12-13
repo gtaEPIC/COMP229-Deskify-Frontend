@@ -12,11 +12,9 @@
 
 .formTitle {
   font-size: 28px;
-  color: #446E5F;
-  font-weight: 600;
-  letter-spacing: -1px;
-  position: relative;
-  display: flex;
+  font-weight: bold;
+  color: white;
+  text-align: center;
 }
 
 .message, .signin {
