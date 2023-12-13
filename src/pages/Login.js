@@ -41,10 +41,14 @@ function Login() {
         } else if (data && data.status === 401) {
           setShowFailAlert(true);
           setErrorMsg("Authentication failed. Please check your credentials.");
-        } else {
+        } else if (data && data.message) {
           setShowFailAlert(true)
           console.error(data);
           setErrorMsg(data.message);
+        }else{
+            setShowFailAlert(true)
+            console.error(data);
+            setErrorMsg("Unknown error");
         }
       })
       .catch((err) => {

@@ -4,7 +4,8 @@ import "./AddTicket.css"
 import React, {  useEffect } from 'react';
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import TicketModel from "./TicketModel";
-import {getIsAdmin, isAuthenticated} from "../pages/login-helper";
+import {getIsAdmin, getUsername, isAuthenticated} from "../pages/login-helper";
+import FailAlertMessage from "./FailAlertMessage";
 let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 
 
@@ -14,6 +15,9 @@ const UpdateTicket = () => {
   const { state } = useLocation();
   const { from } = state || { from: { pathname: `/tickets/${id}` } };
   const navigate = useNavigate();
+
+  // Error handling
+    const [error, setError] = React.useState(null);
 
   useEffect(() => {
     if (!isAuthenticated()) {
@@ -30,6 +34,9 @@ const UpdateTicket = () => {
           const data = await response.json();
             console.log(data);
           let dataTicket = data.ticket;
+          if (dataTicket.user.username !== getUsername() && !getIsAdmin()) {
+            navigate('/tickets/' + id, { replace: true });
+          }
           let t = new TicketModel(dataTicket.record, dataTicket.title, dataTicket.description, dataTicket.status, dataTicket.priority, dataTicket.dateCreated, dataTicket.updated, dataTicket.user.username, dataTicket.iteration, dataTicket.resolution)
           t.comment = "";
           setTicket(t);
@@ -69,9 +76,13 @@ const UpdateTicket = () => {
       if (response.ok) {
         console.log('Ticket updated successfully!');
         navigate(from, { replace: true });
-      } else {
+      } else if (response.status === 403) {
         // Handle error cases
-        console.error('Failed to update ticket:', await response.text());
+        console.error('Failed to update ticket:', response);
+        setError('Unauthorized');
+      }else{
+        console.error('Failed to update ticket:', response);
+        setError('Failed to update ticket.');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -134,6 +145,9 @@ const UpdateTicket = () => {
             <button type="submit" className="btn-success btn w-100">Submit</button>
           </center>
         </form>
+        <div className="container mt-4">
+          <FailAlertMessage message={error} visible={error !== null} handleDismiss={() => setError(null)} />
+        </div>
       </div>
     </center>
   </div>

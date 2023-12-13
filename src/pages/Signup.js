@@ -37,16 +37,20 @@ function Signup(){
                     authenticate(data.token, () => {
                         navigate(from, { replace: true });
                     });
-                } else {
+                } else if (data.message) {
                     // alert(data.message);
                     console.error(data);
                     setErrorMsg(data.message);
+                    setShowFailAlert(true);
+                }else{
+                    console.error(data);
+                    setErrorMsg("Unknown error");
                     setShowFailAlert(true);
                 }
             })
             .catch((err) => {
                 // alert(err.message);
-                console.log(err);
+                console.error(err);
                 setErrorMsg(err.message);
                 setShowFailAlert(true);
             });
