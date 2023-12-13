@@ -138,7 +138,7 @@ function Profile() {
 
         {getIsAdmin() ? (
             <div className="form mt-2 text-white">
-                <p>Since you are a user use this panel to make someone else an admin or disable an account</p>
+                <p>Since you are an admin, use this panel to make someone else an admin or disable an account</p>
                 <div className="input-container">
                     <input type="text" className={"w-100"} name={"username"} placeholder="Username" onChange={(e) => setAdminUsername(e.target.value)}></input>
                 </div>
