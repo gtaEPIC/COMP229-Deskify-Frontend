@@ -82,10 +82,10 @@ export default function View() {
                     </ul>
                     <div className= 'editTicket'>
                         <br></br>
-                        {isAuthenticated() && (getUsername() === ticket.user || getIsAdmin()) && (<Link to={`/tickets/${id}/edit`} className="btn btn-primary">
+                        {isAuthenticated() && (getUsername() === ticket.user || getIsAdmin()) && (ticket.status === "New" || ticket.status === "In Progress" || getIsAdmin()) && (<Link to={`/tickets/${id}/edit`} className="btn btn-primary">
                             Edit
                         </Link>)}
-                        {isAuthenticated() && (getUsername() !== ticket.user && !getIsAdmin()) && (<Link to={"#"} className="btn btn-secondary disabled">
+                        {isAuthenticated() && (getUsername() !== ticket.user && !getIsAdmin()) && (ticket.status === "New" || ticket.status === "In Progress") && (<Link to={"#"} className="btn btn-secondary disabled">
                             You must own this ticket to edit it
                         </Link>)}
                         {!isAuthenticated() && (
@@ -93,7 +93,7 @@ export default function View() {
                             Login to edit tickets
                         </Link>
                         )}
-                        {isAuthenticated() && (getUsername() === ticket.user || getIsAdmin()) && (<button className="btn btn-danger ms-2" onClick={cancelTicket}>Cancel Ticket</button>)}
+                        {isAuthenticated() && (getUsername() === ticket.user || getIsAdmin()) && (ticket.status === "New" || ticket.status === "In Progress") && (<button className="btn btn-danger ms-2" onClick={cancelTicket}>Cancel Ticket</button>)}
                     </div>
 		        </div>
 	        </div>
@@ -115,7 +115,7 @@ export default function View() {
                             </div>
                             <div className={"row"}>
                                 <div className={"col"}>
-                                    {isAuthenticated() && (getUsername() === log.user.username || getIsAdmin()) && (<>
+                                    {isAuthenticated() && (getUsername() === log.user.username || getIsAdmin()) && (ticket.status === "New" || ticket.status === "In Progress") && (<>
                                         <ResolveTicket ticket={ticket} iteration={log} cb={() => {
                                             // Force a re-render
                                             setUpdate(!update)
@@ -132,7 +132,7 @@ export default function View() {
                 </div>
             ))}
             </div>
-            {isAuthenticated() && (
+            {isAuthenticated() && (ticket.status === "New" || ticket.status === "In Progress" || getIsAdmin()) && (
                 <div className='comment'>
                     <AddComment ticket={ticket.record} cb={() => {
                         // Force a re-render
