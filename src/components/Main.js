@@ -81,8 +81,12 @@ export default function Main() {
               website's visual elements, focusing on aesthetics, functionality, and
               user accessibility.
             </p>
-            <p className={"text-primary"}>YOUR TICKETS: </p>
-            <List tickets={tickets} loading={loading} />
+            {isAuthenticated() && (
+                <>
+                  <h3 className={"text-primary"}>YOUR TICKETS: </h3>
+                  <List tickets={tickets} loading={loading}/>
+                </>
+            )}
           </div>
         </div>
       </div>
