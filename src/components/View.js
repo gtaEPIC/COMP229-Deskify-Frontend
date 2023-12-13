@@ -1,6 +1,6 @@
 import './View.css';
 import React, {useEffect} from 'react'
-import {Link, useParams} from 'react-router-dom';
+import {Link, useLocation, useNavigate, useParams} from 'react-router-dom';
 import TicketModel from "./TicketModel"
 import {getIsAdmin, getUsername, isAuthenticated} from "../pages/login-helper";
 import {Link as ScrollLink} from 'react-scroll';
@@ -12,6 +12,11 @@ export default function View() {
     const { id } = useParams();
     const [ticket, setTicket] = React.useState(new TicketModel());
     const [update, setUpdate] = React.useState(false);
+
+    // State for navigation
+    const { state } = useLocation();
+    const { from } = state || { from: { pathname: `/tickets/` } };
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchTicket = async () => {
@@ -31,6 +36,26 @@ export default function View() {
         };
         fetchTicket().then(r => console.log(r));
     }, [id, update]);
+
+    const cancelTicket = async () => {
+        // eslint-disable-next-line no-restricted-globals
+        if (!confirm('Are you sure you want to cancel this ticket?')) return;
+        try {
+            const response = await fetch(`${apiURL}/ticket/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: 'Bearer ' + sessionStorage.getItem('jwt')
+                }
+            });
+            if (response.ok) {
+                console.log('Ticket cancelled successfully!');
+                alert('Ticket cancelled successfully!');
+                navigate(from, { replace: true });
+            }
+        }catch (e) {
+            console.error('Error:', e);
+        }
+    }
 
 
   return (
@@ -68,6 +93,7 @@ export default function View() {
                             Login to edit tickets
                         </Link>
                         )}
+                        {isAuthenticated() && (getUsername() === ticket.user || getIsAdmin()) && (<button className="btn btn-danger ms-2" onClick={cancelTicket}>Cancel Ticket</button>)}
                     </div>
 		        </div>
 	        </div>
