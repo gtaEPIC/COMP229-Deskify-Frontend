@@ -52,7 +52,7 @@ const UpdateTicket = () => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
+          'Authorization': 'Bearer ' + sessionStorage.getItem('jwt'),
         },
         body: JSON.stringify({
             title: ticket.title,
