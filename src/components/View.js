@@ -1,8 +1,8 @@
 import './View.css';
 import React, {useEffect} from 'react'
-import {Link, useParams} from 'react-router-dom';
+import {Link, useLocation, useNavigate, useParams} from 'react-router-dom';
 import TicketModel from "./TicketModel"
-import {isAuthenticated} from "../pages/login-helper";
+import {getIsAdmin, getUsername, isAuthenticated} from "../pages/login-helper";
 import {Link as ScrollLink} from 'react-scroll';
 import ResolveTicket, {UnresolveTicket} from "./Resolution";
 import AddComment from "./AddComment";
@@ -12,6 +12,11 @@ export default function View() {
     const { id } = useParams();
     const [ticket, setTicket] = React.useState(new TicketModel());
     const [update, setUpdate] = React.useState(false);
+
+    // State for navigation
+    const { state } = useLocation();
+    const { from } = state || { from: { pathname: `/tickets/` } };
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchTicket = async () => {
@@ -31,6 +36,26 @@ export default function View() {
         };
         fetchTicket().then(r => console.log(r));
     }, [id, update]);
+
+    const cancelTicket = async () => {
+        // eslint-disable-next-line no-restricted-globals
+        if (!confirm('Are you sure you want to cancel this ticket?')) return;
+        try {
+            const response = await fetch(`${apiURL}/ticket/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: 'Bearer ' + sessionStorage.getItem('jwt')
+                }
+            });
+            if (response.ok) {
+                console.log('Ticket cancelled successfully!');
+                alert('Ticket cancelled successfully!');
+                navigate(from, { replace: true });
+            }
+        }catch (e) {
+            console.error('Error:', e);
+        }
+    }
 
 
   return (
@@ -57,14 +82,18 @@ export default function View() {
                     </ul>
                     <div className= 'editTicket'>
                         <br></br>
-                        {isAuthenticated() && (<Link to={`/tickets/${id}/edit`} className="btn btn-primary">
+                        {isAuthenticated() && (getUsername() === ticket.user || getIsAdmin()) && (ticket.status === "New" || ticket.status === "In Progress" || getIsAdmin()) && (<Link to={`/tickets/${id}/edit`} className="btn btn-primary">
                             Edit
+                        </Link>)}
+                        {isAuthenticated() && (getUsername() !== ticket.user && !getIsAdmin()) && (ticket.status === "New" || ticket.status === "In Progress") && (<Link to={"#"} className="btn btn-secondary disabled">
+                            You must own this ticket to edit it
                         </Link>)}
                         {!isAuthenticated() && (
                             <Link to="/login" className="btn btn-primary">
                             Login to edit tickets
                         </Link>
                         )}
+                        {isAuthenticated() && (getUsername() === ticket.user || getIsAdmin()) && (ticket.status === "New" || ticket.status === "In Progress") && (<button className="btn btn-danger ms-2" onClick={cancelTicket}>Cancel Ticket</button>)}
                     </div>
 		        </div>
 	        </div>
@@ -86,14 +115,16 @@ export default function View() {
                             </div>
                             <div className={"row"}>
                                 <div className={"col"}>
-                                    <ResolveTicket ticket={ticket} iteration={log} cb={() => {
-                                        // Force a re-render
-                                        setUpdate(!update)
-                                    }}/>
-                                    <UnresolveTicket ticket={ticket} iteration={log} cb={() => {
-                                        // Force a re-render
-                                        setUpdate(!update)
-                                    }} />
+                                    {isAuthenticated() && (getUsername() === log.user.username || getIsAdmin()) && (ticket.status === "New" || ticket.status === "In Progress" || ticket.status === "Resolved") && (<>
+                                        <ResolveTicket ticket={ticket} iteration={log} cb={() => {
+                                            // Force a re-render
+                                            setUpdate(!update)
+                                        }}/>
+                                        <UnresolveTicket ticket={ticket} iteration={log} cb={() => {
+                                            // Force a re-render
+                                            setUpdate(!update)
+                                        }} />
+                                    </>)}
                                 </div>
                             </div>
                         </div>
@@ -101,14 +132,14 @@ export default function View() {
                 </div>
             ))}
             </div>
-            <div className='comment'>
-                {isAuthenticated() && (
+            {isAuthenticated() && (ticket.status === "New" || ticket.status === "In Progress" || getIsAdmin()) && (
+                <div className='comment'>
                     <AddComment ticket={ticket.record} cb={() => {
                         // Force a re-render
                         setUpdate(!update)
-                    }} />
-                )}
-            </div>
+                    }}/>
+                </div>
+            )}
         </center>
     </div>
   )
