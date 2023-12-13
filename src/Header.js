@@ -1,7 +1,7 @@
 // Header.js
 
 import React from 'react';
-import {NavLink, Link} from 'react-router-dom';
+import {NavLink, Link, useLocation} from 'react-router-dom';
 import logo from './images/logo.png';
 import { getUsername, isAuthenticated, logout } from './pages/login-helper';
 import './header.css';
@@ -12,6 +12,9 @@ function Header() {
   // const handleUserProfileClick = () => {
   //   setShowUserProfile(!showUserProfile);
   // };
+
+  // This is required as it causes issues otherwise
+  const loc = useLocation();
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: '#08181C', padding: 0, height: '64px' }}>
