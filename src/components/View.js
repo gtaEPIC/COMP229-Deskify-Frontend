@@ -115,7 +115,7 @@ export default function View() {
                             </div>
                             <div className={"row"}>
                                 <div className={"col"}>
-                                    {isAuthenticated() && (getUsername() === log.user.username || getIsAdmin()) && (ticket.status === "New" || ticket.status === "In Progress" || ticket.status === "Resolved") && (<>
+                                    {isAuthenticated() && (getUsername() === ticket.user.username || getIsAdmin()) && (ticket.status === "New" || ticket.status === "In Progress" || ticket.status === "Resolved") && (<>
                                         <ResolveTicket ticket={ticket} iteration={log} cb={() => {
                                             // Force a re-render
                                             setUpdate(!update)
