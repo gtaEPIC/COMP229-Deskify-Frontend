@@ -1,10 +1,32 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import List from './List';
+import {getUsername, isAuthenticated} from "../pages/login-helper";
+let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 
 export default function Main() {
   
-  const tickets = [];
-  const loading = false;
+  const [tickets, setTickets] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+
+  useEffect(() => {
+    if (!isAuthenticated()) return;
+    async function fetchData() {
+      try {
+        let response = await fetch(`${apiURL}/ticket`);
+        if (!response.ok) {
+          console.log(response);
+          return;
+        }
+        let data = await response.json();
+        let allTickets = data.list;
+        setTickets(allTickets.filter(ticket => ticket.user.username === getUsername()));
+        setLoading(false);
+      }catch (e) {
+        console.log(e);
+      }
+    }
+    fetchData().then();
+  }, []);
 
   return (
     <body>
