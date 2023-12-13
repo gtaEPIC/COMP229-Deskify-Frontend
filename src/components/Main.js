@@ -1,6 +1,33 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import List from './List';
+import {getUsername, isAuthenticated} from "../pages/login-helper";
+let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 
 export default function Main() {
+  
+  const [tickets, setTickets] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+
+  useEffect(() => {
+    if (!isAuthenticated()) return;
+    async function fetchData() {
+      try {
+        let response = await fetch(`${apiURL}/ticket`);
+        if (!response.ok) {
+          console.log(response);
+          return;
+        }
+        let data = await response.json();
+        let allTickets = data.list;
+        setTickets(allTickets.filter(ticket => ticket.user.username === getUsername()));
+        setLoading(false);
+      }catch (e) {
+        console.log(e);
+      }
+    }
+    fetchData().then();
+  }, []);
+
   return (
     <body>
       <div style={{ backgroundColor: '#08181C', minHeight: '100vh', display: 'flex', flexDirection: 'column', padding: '20px', paddingTop: '20px',}}>
@@ -54,6 +81,12 @@ export default function Main() {
               website's visual elements, focusing on aesthetics, functionality, and
               user accessibility.
             </p>
+            {isAuthenticated() && (
+                <>
+                  <h3 className={"text-primary"}>YOUR TICKETS: </h3>
+                  <List tickets={tickets} loading={loading}/>
+                </>
+            )}
           </div>
         </div>
       </div>

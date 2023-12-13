@@ -19,7 +19,7 @@ const DeleteTicket = ({ id, cb }) => {
       const response = await fetch(`${apiURL}/ticket/${id}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+          'Authorization': 'Bearer ' + sessionStorage.getItem('jwt')
         },
       });
 
