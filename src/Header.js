@@ -17,24 +17,24 @@ function Header() {
   const loc = useLocation();
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: '#08181C', padding: 0, height: '64px' }}>
+    <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: 'rgb(87, 183, 150, 0.7)', padding: 0, height: '64px' }}>
       <NavLink to="#" className="navbar-brand" style={{ marginLeft: '0px' }}>
-        <img src={logo} alt="logo" width="64" height="64" />
+        <img src={logo} alt="logo" height="64" />
       </NavLink>
       <div className="container-fluid">
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto me-5">
-            <button>
+            <button style={{background:"transparent"}}>
               <li className="nav-item">
-                <NavLink to="/" className="nav-link text-secondary">
+                <NavLink to="/" className="nav-link" style={{color:"whites"}}>
                   Home
                 </NavLink>
               </li>
             </button>
-            <button>
+            <button style={{background:"transparent"}}>
               <li className="nav-item dropdown">
-                <Link className="nav-link dropdown-toggle text-secondary" id="navbarDropdown" data-bs-toggle="dropdown"
-                      aria-expanded="false" to="#">
+                <Link className="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown"
+                      aria-expanded="false" to="#" style={{color:"white"}}>
                   Tickets
                 </Link>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -60,16 +60,16 @@ function Header() {
                 </>
             ) : (
                 <>
-                  <button>
+                  <button style={{background:"transparent"}}>
                     <li className="nav-item">
-                      <NavLink to="/login" className="nav-link text-secondary">
+                      <NavLink to="/login" className="nav-link" style={{color:"white"}}>
                         Login
                       </NavLink>
                     </li>
                   </button>
-                  <button>
+                  <button style={{background:"transparent"}}>
                     <li className="nav-item">
-                      <NavLink to="/signup" className="nav-link text-secondary">
+                      <NavLink to="/signup" className="nav-link" style={{color:"white"}}>
                         Sign-up
                       </NavLink>
                     </li>
