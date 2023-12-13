@@ -7,7 +7,7 @@ let apiURL = process.env.REACT_APP_APIURL || 'http://localhost:3000'
 
 
 export default function Main() {
-  
+
   const [tickets, setTickets] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
 
@@ -33,11 +33,10 @@ export default function Main() {
 
   return (
     <body>
-      <div style={{ backgroundColor: '#08181C', minHeight: '100vh', display: 'flex', flexDirection: 'column', padding:"20px", paddingTop: '20px',}}>
+      <div style={{ backgroundColor: '#08181C', minHeight: '100vh', display: 'flex', flexDirection: 'column', padding:"20px", paddingTop: '20px'}}>
         <div>
-          <div>
+          <div style={{textAlign:"center"}}>
             <h1 style={{color:"white", textAlign:"center", paddingLeft:"100px", paddingRight:"100px", paddingTop:"80px", paddingBottom:"20px"}}>Empower Your Team, Unleash Creativity: Where Collaboration Meets Simplicity!</h1>
-            
             <table style={{width:"100%"}}>
               <tr>
                 <td style={{textAlign:"right", paddingRight:"0px", marginRight:"0px", width:"50%"}}>
@@ -135,7 +134,7 @@ export default function Main() {
 
             {isAuthenticated() && (
                 <>
-                  <h3 className={"text-primary"}>YOUR TICKETS: </h3>
+                  <h3 className={"text-primary"} style={{marginTop:"40px"}}>YOUR TICKETS: </h3>
                   <List tickets={tickets} loading={loading}/>
                 </>
             )}
